@@ -1,0 +1,97 @@
+﻿@model ProjectSetupV2.Models.Context.SetupViewModel
+
+@{
+    ViewData["Title"] = "Setup";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Setup">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="CustomerId" class="control-label"></label>
+                <select asp-for="CustomerId" asp-items="@ViewBag.CustomerNameList" class="form-control" id="projectsDropdown" onchange="getCityList()"></select>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Job" class="control-label"></label>
+                <select asp-for="Job" asp-items="@ViewBag.ProjectList" class="form-control"></select>
+            </div>
+
+            @*<div class="form-group">
+            <label asp-for="TaskName" class="control-label"></label>
+            <input asp-for="TaskName" class="form-control" />
+            <span asp-validation-for="TaskName" class="text-danger"></span>
+        </div>*@
+
+            @*<label asp-for="TaskName" class="control-label"></label>
+        <div class="tasks">
+            <div class="TasksWrapper">
+                <div class="form-group">
+                    <span asp-validation-for="TaskName" class="text-danger"></span>
+                    <textarea asp-for="TaskName" class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="btn btn-outline-secondary add_task">Add Task</button>
+        <br />*@
+
+            <div class="form-group">
+                <label asp-for="TaskName" class="control-label"></label>
+                <select asp-for="TaskName" asp-items="@ViewBag.TasksList" class="form-control"></select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="BusinessValue" class="control-label"></label>
+                <select asp-for="BusinessValue" asp-items="@ViewBag.BusinessValuesList" class="form-control"></select>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Setup" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+
+    @*<script>
+        $(document).ready(function () {
+            $('.add_task').on('click', function () {
+                $('.tasks').append('<div style="margin-top:10px;" class="TasksWrapper"><div class="form-group"><span asp-validation-for= "TaskName" class= "text-danger" ></span ><textarea id="TaskName" name="TaskName" class="form-control"></textarea></div >')
+            });
+        });
+    </script>*@
+
+    <script>
+        function getCityList() {
+            debugger;
+            var stateId = $("#projectsDropdown").val();
+            $.ajax
+                ({
+                    url: '/Home/GetProjectsList',
+                    type: 'POST',
+                    datatype: 'application/json',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        stateId: +stateId
+                    }),
+                    success: function (result) {
+                        $("#projectsDropdown").html("");
+                        $.each($.parseJSON(result), function (i, city) {
+                            $("#projectsDropdown").append($('<option></option>').val(city.CityID).html(city.CityName))
+                        })
+
+                    },
+                    error: function () {
+                        alert("Whooaaa! Something went wrong..")
+                    },
+                });
+        }
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,93 @@
+﻿@model ProjectSetupV2.Models.Context.MainViewModel
+
+@{
+    ViewData["Title"] = "Main";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Main</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                CUSTOMERS
+            </th>
+            <th>
+                PROJECTS
+            </th>
+            <th>
+                TASKS
+            </th>
+            <th>
+                BUSINESS VALUES
+            </th>
+            <th>
+                BUSINESS RATE
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+        @for (int i = 0; i < Model.customers.Count;i++)
+        {
+
+        }
+
+        @foreach (var a in Model.customers)
+        {
+            <tr>
+                <td>
+                    @a.CustomerName
+                </td>
+            </tr>
+            
+                @foreach (var b in Model.jobs.Where(x => x.CustomerId == a.Id))
+                {
+                    <tr>
+                        <td>
+                            @b.Job
+                        </td>
+                    </tr>
+
+                        @foreach (var c in Model.tasks.Where(x => x.ProjectId == b.Id))
+                        {
+                            <td>
+                                @c.TaskName
+                            </td>
+                            @foreach (var d in Model.businessValues.Where(x => x.Id == c.BusinessValuesId))
+                            {
+                                <td>@d.BusinessValue</td>
+                                <td>@d.Business</td>
+                            }
+                        }
+                    
+                }
+
+         }
+
+
+        @*
+        <td>
+            @Html.DisplayFor(modelItem => item.ProjectName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaskName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BusinessValue)
+        </td>
+        <td>
+            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+        </td>*@
+
+
+    </tbody>
+</table>
