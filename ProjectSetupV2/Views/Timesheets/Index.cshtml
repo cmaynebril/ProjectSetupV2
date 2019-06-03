@@ -1,0 +1,229 @@
+﻿@model ProjectSetupV2.Models.Context.TimesheetViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Timesheet</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClientId" class="control-label"></label>
+                <select asp-for="ClientId" asp-items="@(new SelectList(ViewBag.ListofClients, "Id", "Client"))" class="form-control" ></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="JobId" class="control-label"></label>
+                <select asp-for="JobId" id="JobId" name="JobId" asp-items="@(new SelectList(string.Empty, "Id", "Job"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="TaskId" class="control-label"></label>
+                <select asp-for="TaskId" id="TaskId" name="TaskId" asp-items="@(new SelectList(string.Empty, "Id", "Task"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <select asp-for="Status" asp-items="@(new SelectList(ViewBag.timesheetsStatus, "Id", "Status"))" class="form-control"></select>
+                
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimeSpent" class="control-label"></label>
+                <input asp-for="TimeSpent" class="form-control" />
+                <span asp-validation-for="TimeSpent" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="BusinessValueId" class="control-label"></label>
+                <select asp-for="BusinessValueId" asp-items="@ViewBag.busValueList" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="AssigneeId" class="control-label"></label>
+                <select asp-for="AssigneeId" asp-items="@ViewBag.assigneesList" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-8">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Date
+                    </th>
+                    <th>
+                        Client
+                    </th>
+                    <th>
+                        Job
+                    </th>
+                    <th>
+                        Task
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Time Spent
+                    </th>
+                    <th>
+                        Business Value
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @*@foreach (var item in Model.client)
+                    {
+                    <tr>
+                        @*<td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Client)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.JobId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TaskId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BusinessValueId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TimeSpent)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AssigneeId)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                    }*@
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+@section scripts{
+    
+    <script type="text/javascript">
+//        $(document).ready(
+//            function () {
+//                //$("#clientDropdown").click(function (event) {
+//                //    alert("Handler for .change() called.");
+//                //});
+////			// GET REQUEST
+//			$("#clientDropdown").change(function(event) {
+//                event.preventDefault();
+
+//				ajaxGet();
+//            });
+//                var getDropdown = document.getElementById("clientDropdown");
+//                var selected = getDropdown.options[getDropdown.selectedIndex].value;
+//			// DO GET
+//			function ajaxGet() {
+//				$.ajax({
+//					type : "GET",
+//					url : "/api/JobsAPI/" + $("#clientDropdown :selected").val() ,
+//					dataType: 'json',
+//                    success: function (data) {
+
+//							////$.each(data, function(i, jobs) {
+//							////			$.each(jobs, function(key, value){
+//       ////                                   console.log("Success: ", data);
+//							////			});
+//							////		});
+//                        $.each(data, function(key, value){
+//                            console.log(value.id);
+//                             PopulateValueForSecondDropdown(data);
+//									});
+//							////console.log("Success: ", data);
+
+//					}
+//				});
+//                }
+//                window.onload = ajaxGet();
+
+//            })
+
+//        function PopulateValueForSecondDropdown(data) {
+//            $('#jobDropdown').empty();
+//            data.forEach(function(item){
+//                $('#jobDropdown').append('<option value="' + item.key+ '">' + item.value + '</option>');
+//            });
+//        }
+
+        $(document).ready(function () {
+            var items = "<option value = '0'>Select</option>";
+            $('#JobId').html(items);
+            $('#TaskId').html(items);
+        });
+    </script>
+
+
+    <script type="text/javascript">
+         $(document).ready(function () {
+             $('#ClientId').change(function () {
+                var url = '@Url.Content("~/")' + "Timesheets/GetJobCategory";
+                var ddlsource = "#ClientId";
+                  
+                $.getJSON(url, { Id : $(ddlsource).val() }, function (data) {
+                    var items = '';
+                    $("#JobId").empty();
+                    $.each(data, function (i, job) {
+                        items += "<option value='" + job.value + "'>" + job.text + "</option>";
+                    });
+                    $('#JobId').html(items);
+                    
+                   
+                });
+             });
+
+              $('#JobId').change(function () {
+                var url = '@Url.Content("~/")' + "Timesheets/GetTaskCategory";
+                var ddlsource = "#JobId";
+                  
+                $.getJSON(url, { Id : $(ddlsource).val() }, function (data) {
+                    var items = '';
+                    $("#TaskId").empty();
+                    $.each(data, function (i, task) {
+                        items += "<option value='" + task.value + "'>" + task.text + "</option>";
+                    });
+                    $('#TaskId').html(items);
+                    
+                   
+                });
+            });
+        });
+    </script>
+
+
+
+}
