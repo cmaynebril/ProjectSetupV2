@@ -54,6 +54,19 @@ namespace ProjectSetupV2.Controllers
             }
             ViewBag.busValueList = dropdownbusValueList;
 
+            var assigneesList = _context.Assignees.ToList();
+            var dropdownassigneesList = new List<SelectListItem>();
+            foreach (var assgn in assigneesList)
+            {
+                dropdownassigneesList.Add(new SelectListItem { Value = assgn.Id.ToString(), Text = assgn.Assignee.ToString() });
+            }
+            ViewBag.assigneesList = dropdownassigneesList;
+
+            List<TimesheetsStatus> timesheetsStatus = new List<TimesheetsStatus>();
+            timesheetsStatus = (from TimesheetsStatus in _context.TimesheetsStatus
+                                select TimesheetsStatus).ToList();
+            timesheetsStatus.Insert(0, new TimesheetsStatus { Id = 0, Status = "Select" });
+            ViewBag.timesheetsStatus = timesheetsStatus;
             //return View();
             //return View(await _context.Timesheet.ToListAsync());
 
