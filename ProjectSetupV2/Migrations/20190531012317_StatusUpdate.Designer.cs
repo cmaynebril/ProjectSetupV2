@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectSetupV2.Models.Context;
 
 namespace ProjectSetupV2.Migrations
 {
     [DbContext(typeof(DBProjectSetupContext))]
-    partial class DBProjectSetupContextModelSnapshot : ModelSnapshot
+    [Migration("20190531012317_StatusUpdate")]
+    partial class StatusUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -99,13 +101,26 @@ namespace ProjectSetupV2.Migrations
 
                     b.Property<double?>("JobRate");
 
-                    b.Property<string>("Status");
+                    b.Property<string>("JobStatus");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
 
                     b.ToTable("Jobs");
+                });
+
+            modelBuilder.Entity("ProjectSetupV2.Models.Context.TaskStatus", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Status");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TaskStatus");
                 });
 
             modelBuilder.Entity("ProjectSetupV2.Models.Context.Tasks", b =>
@@ -136,19 +151,6 @@ namespace ProjectSetupV2.Migrations
                     b.ToTable("Tasks");
                 });
 
-            modelBuilder.Entity("ProjectSetupV2.Models.Context.TasksStatus", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Status");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TasksStatus");
-                });
-
             modelBuilder.Entity("ProjectSetupV2.Models.Context.Timesheet", b =>
                 {
                     b.Property<long>("Id")
@@ -176,19 +178,6 @@ namespace ProjectSetupV2.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Timesheet");
-                });
-
-            modelBuilder.Entity("ProjectSetupV2.Models.Context.TimesheetsStatus", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Status");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TimesheetsStatus");
                 });
 
             modelBuilder.Entity("ProjectSetupV2.Models.Context.Jobs", b =>
