@@ -19,9 +19,12 @@ namespace ProjectSetupV2.Models.Context
         public virtual DbSet<BusinessValues> BusinessValues { get; set; }
         public virtual DbSet<Clients> Clients { get; set; }
         public virtual DbSet<Jobs> Jobs { get; set; }
-        public virtual DbSet<Staffs> Staffs { get; set; }
+        public virtual DbSet<Assignees> Assignees { get; set; }
         public virtual DbSet<Tasks> Tasks { get; set; }
         public virtual DbSet<Timesheet> Timesheet { get; set; }
+        public virtual DbSet<JobStatus> JobStatus { get; set; }
+        public virtual DbSet<TasksStatus> TasksStatus { get; set; }
+        public virtual DbSet<TimesheetsStatus> TimesheetsStatus { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -68,16 +71,6 @@ namespace ProjectSetupV2.Models.Context
                     .HasConstraintName("FK__Projects__Custom__398D8EEE");
             });
 
-            modelBuilder.Entity<Staffs>(entity =>
-            {
-                entity.Property(e => e.StaffName).HasColumnType("text");
-
-                entity.HasOne(d => d.Task)
-                    .WithMany(p => p.Staffs)
-                    .HasForeignKey(d => d.TaskId)
-                    .HasConstraintName("FK_Staffs_Tasks");
-            });
-
             modelBuilder.Entity<Tasks>(entity =>
             {
                 entity.Property(e => e.JobId).HasColumnName("jobId");
@@ -97,6 +90,7 @@ namespace ProjectSetupV2.Models.Context
                     .HasConstraintName("FK__Tasks__Id__3E52440B");
             });
         }
+
 
     }
 }
