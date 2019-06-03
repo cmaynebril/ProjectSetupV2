@@ -48,6 +48,13 @@ namespace ProjectSetupV2.Controllers
         public IActionResult Create()
         {
             ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Client");
+            var status = _context.JobStatus.ToList();
+            var statusList = new List<SelectListItem>();
+            foreach (var item in status)
+            {
+                statusList.Add(new SelectListItem { Value = item.Status.ToString(), Text = item.Status.ToString() });
+            }
+            ViewBag.statusList = statusList;
             return View();
         }
 
@@ -85,6 +92,13 @@ namespace ProjectSetupV2.Controllers
                 return NotFound();
             }
             ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Client", jobs.ClientId);
+            var status = _context.JobStatus.ToList();
+            var statusList = new List<SelectListItem>();
+            foreach (var item in status)
+            {
+                statusList.Add(new SelectListItem { Value = item.Status.ToString(), Text = item.Status.ToString() });
+            }
+            ViewBag.statusList = statusList;
             return View(jobs);
         }
 

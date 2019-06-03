@@ -40,7 +40,7 @@ namespace ProjectSetupV2.Controllers
         public async Task<ActionResult<Jobs>> GetJobs(long id)
         {
             var result = await (from j in _context.Jobs
-                                where j.Id == id
+                                where j.ClientId == id
                                 select new
                                 {
                                     j.Id,

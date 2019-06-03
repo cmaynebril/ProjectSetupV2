@@ -50,6 +50,15 @@ namespace ProjectSetupV2.Controllers
         {
             ViewData["BusinessValuesId"] = new SelectList(_context.BusinessValues, "Id", "Business");
             ViewData["JobId"] = new SelectList(_context.Jobs, "Id", "Job");
+
+            var status = _context.TasksStatus.ToList();
+            var statusList = new List<SelectListItem>();
+            foreach (var item in status)
+            {
+                statusList.Add(new SelectListItem { Value = item.Status.ToString(), Text = item.Status.ToString() });
+            }
+            ViewBag.taskstatusList = statusList;
+
             return View();
         }
 
@@ -58,7 +67,7 @@ namespace ProjectSetupV2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Task,JobId,BusinessValuesId,TasksRate")] Tasks tasks)
+        public async Task<IActionResult> Create([Bind("Id,Task,JobId,BusinessValuesId,TasksRate,TaskStatus")] Tasks tasks)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +95,14 @@ namespace ProjectSetupV2.Controllers
             }
             ViewData["BusinessValuesId"] = new SelectList(_context.BusinessValues, "Id", "Business", tasks.BusinessValuesId);
             ViewData["JobId"] = new SelectList(_context.Jobs, "Id", "Id", tasks.JobId);
+            var status = _context.TasksStatus.ToList();
+            var statusList = new List<SelectListItem>();
+            foreach (var item in status)
+            {
+                statusList.Add(new SelectListItem { Value = item.Status.ToString(), Text = item.Status.ToString() });
+            }
+            ViewBag.taskstatusList = statusList;
+
             return View(tasks);
         }
 
@@ -94,7 +111,7 @@ namespace ProjectSetupV2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,Task,JobId,BusinessValuesId,TasksRate")] Tasks tasks)
+        public async Task<IActionResult> Edit(long id, [Bind("Id,Task,JobId,BusinessValuesId,TasksRate,Status")] Tasks tasks)
         {
             if (id != tasks.Id)
             {
