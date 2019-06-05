@@ -14,6 +14,7 @@ namespace ProjectSetupV2.Models.Context
 
         public long Id { get; set; }
         public string Client { get; set; }
+        public string ContactPerson { get; set; }
 
         public virtual ICollection<Jobs> Jobs { get; set; }
     }
