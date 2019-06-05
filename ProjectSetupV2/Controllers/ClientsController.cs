@@ -53,7 +53,7 @@ namespace ProjectSetupV2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Client")] Clients clients)
+        public async Task<IActionResult> Create([Bind("Id,Client,ContactPerson")] Clients clients)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace ProjectSetupV2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,Client")] Clients clients)
+        public async Task<IActionResult> Edit(long id, [Bind("Id,Client,ContactPerson")] Clients clients)
         {
             if (id != clients.Id)
             {
