@@ -94,7 +94,7 @@ namespace ProjectSetupV2.Controllers
                 return NotFound();
             }
             ViewData["BusinessValuesId"] = new SelectList(_context.BusinessValues, "Id", "Business", tasks.BusinessValuesId);
-            ViewData["JobId"] = new SelectList(_context.Jobs, "Id", "Id", tasks.JobId);
+            ViewData["JobId"] = new SelectList(_context.Jobs, "Id", "Job", tasks.Job);
             var status = _context.TasksStatus.ToList();
             var statusList = new List<SelectListItem>();
             foreach (var item in status)
