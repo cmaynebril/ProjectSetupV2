@@ -14,19 +14,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Task)
+                Job
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TasksRate)
+                Task
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BusinessValues)
+                Tasks Rate
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Job)
+                Business Value
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Status)
+                Status
             </th>
             <th></th>
         </tr>
@@ -35,6 +35,9 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.Job.Job)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Task)
             </td>
             <td>
@@ -42,9 +45,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.BusinessValues.Business)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Job.Job)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Status)

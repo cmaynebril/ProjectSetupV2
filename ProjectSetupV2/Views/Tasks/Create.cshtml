@@ -23,17 +23,15 @@
                 <input asp-for="Task" class="form-control" />
                 <span asp-validation-for="Task" class="text-danger"></span>
             </div>
-
-            <div class="form-group">
-                <label asp-for="BusinessValuesId" class="control-label"></label>
-                <select asp-for="BusinessValuesId" class="form-control" asp-items="ViewBag.BusinessValuesId"></select>
-            </div>
-            <div class="form-group">
+             <div class="form-group">
                 <label asp-for="TasksRate" class="control-label"></label>
                 <input asp-for="TasksRate" class="form-control" />
                 <span asp-validation-for="TasksRate" class="text-danger"></span>
             </div>
-
+            <div class="form-group">
+                <label asp-for="BusinessValuesId" class="control-label"></label>
+                <select asp-for="BusinessValuesId" class="form-control" asp-items="ViewBag.BusinessValuesId"></select>
+            </div>
             <div class="form-group">
                 <label asp-for="Status" class="control-label"></label>
                 <select asp-for="Status" class="form-control" asp-items="ViewBag.taskstatusList"></select>
