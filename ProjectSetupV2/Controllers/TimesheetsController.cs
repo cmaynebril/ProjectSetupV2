@@ -105,7 +105,7 @@ namespace ProjectSetupV2.Controllers
                 return NotFound();
             }
 
-            var timesheet = await _context.Timesheet
+            var timesheet = await _context.JobTasks
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (timesheet == null)
             {
@@ -126,15 +126,15 @@ namespace ProjectSetupV2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Date,TaskId,Status,Description,TimeSpent,JobId,ClientId,BusinessValueId,AssigneeId")] Timesheet timesheet)
+        public async Task<IActionResult> Create([Bind("Id,Date,TaskId,Status,Description,TimeSpent,JobId,ClientId,BusinessValueId,AssigneeId")] JobTasks jobTasks)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(timesheet);
+                _context.Add(jobTasks);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(timesheet);
+            return View(jobTasks);
         }
 
         // GET: Timesheets/Edit/5
@@ -145,7 +145,7 @@ namespace ProjectSetupV2.Controllers
                 return NotFound();
             }
 
-            var timesheet = await _context.Timesheet.FindAsync(id);
+            var timesheet = await _context.JobTasks.FindAsync(id);
             if (timesheet == null)
             {
                 return NotFound();
@@ -158,9 +158,9 @@ namespace ProjectSetupV2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,Date,TaskId,Status,Description,TimeSpent,JobId,ClientId,BusinessValueId,AssigneeId")] Timesheet timesheet)
+        public async Task<IActionResult> Edit(long id, [Bind("Id,Date,TaskId,Status,Description,TimeSpent,JobId,ClientId,BusinessValueId,AssigneeId")] JobTasks jobTasks)
         {
-            if (id != timesheet.Id)
+            if (id != jobTasks.Id)
             {
                 return NotFound();
             }
@@ -169,12 +169,12 @@ namespace ProjectSetupV2.Controllers
             {
                 try
                 {
-                    _context.Update(timesheet);
+                    _context.Update(jobTasks);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TimesheetExists(timesheet.Id))
+                    if (!TimesheetExists(jobTasks.Id))
                     {
                         return NotFound();
                     }
@@ -185,7 +185,7 @@ namespace ProjectSetupV2.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(timesheet);
+            return View(jobTasks);
         }
 
         // GET: Timesheets/Delete/5
@@ -196,7 +196,7 @@ namespace ProjectSetupV2.Controllers
                 return NotFound();
             }
 
-            var timesheet = await _context.Timesheet
+            var timesheet = await _context.JobTasks
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (timesheet == null)
             {
@@ -211,15 +211,15 @@ namespace ProjectSetupV2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var timesheet = await _context.Timesheet.FindAsync(id);
-            _context.Timesheet.Remove(timesheet);
+            var timesheet = await _context.JobTasks.FindAsync(id);
+            _context.JobTasks.Remove(timesheet);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool TimesheetExists(long id)
         {
-            return _context.Timesheet.Any(e => e.Id == id);
+            return _context.JobTasks.Any(e => e.Id == id);
         }
     }
 }
