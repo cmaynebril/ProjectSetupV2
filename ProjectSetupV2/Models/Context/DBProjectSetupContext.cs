@@ -21,17 +21,19 @@ namespace ProjectSetupV2.Models.Context
         public virtual DbSet<Jobs> Jobs { get; set; }
         public virtual DbSet<Assignees> Assignees { get; set; }
         public virtual DbSet<Tasks> Tasks { get; set; }
-        public virtual DbSet<Timesheet> Timesheet { get; set; }
         public virtual DbSet<JobStatus> JobStatus { get; set; }
         public virtual DbSet<TasksStatus> TasksStatus { get; set; }
         public virtual DbSet<TimesheetsStatus> TimesheetsStatus { get; set; }
+        public virtual DbSet<InvoiceType> InvoiceType { get; set; }
+        public virtual DbSet<JobTasks> JobTasks { get; set; }
+
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=.;Database=DBProjectSetup;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=.;Database=DBProjectSetupV2;Trusted_Connection=True;");
             }
         }
 
