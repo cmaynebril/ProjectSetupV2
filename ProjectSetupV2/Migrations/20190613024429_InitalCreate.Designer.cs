@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectSetupV2.Models.Context;
 
 namespace ProjectSetupV2.Migrations
 {
     [DbContext(typeof(DBProjectSetupContext))]
-    partial class DBProjectSetupContextModelSnapshot : ModelSnapshot
+    [Migration("20190613024429_InitalCreate")]
+    partial class InitalCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,45 +84,6 @@ namespace ProjectSetupV2.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("JobStatus");
-                });
-
-            modelBuilder.Entity("ProjectSetupV2.Models.Context.JobTasks", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("AssigneeId");
-
-                    b.Property<long?>("BusinessValueId");
-
-                    b.Property<long?>("ClientId");
-
-                    b.Property<DateTime?>("Date");
-
-                    b.Property<string>("Description");
-
-                    b.Property<long?>("JobId");
-
-                    b.Property<string>("Status");
-
-                    b.Property<long?>("TaskId");
-
-                    b.Property<double>("TimeSpent");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AssigneeId");
-
-                    b.HasIndex("BusinessValueId");
-
-                    b.HasIndex("ClientId");
-
-                    b.HasIndex("JobId");
-
-                    b.HasIndex("TaskId");
-
-                    b.ToTable("JobTasks");
                 });
 
             modelBuilder.Entity("ProjectSetupV2.Models.Context.Jobs", b =>
@@ -214,29 +177,6 @@ namespace ProjectSetupV2.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("InvoiceType");
-                });
-
-            modelBuilder.Entity("ProjectSetupV2.Models.Context.JobTasks", b =>
-                {
-                    b.HasOne("ProjectSetupV2.Models.Context.Assignees", "Assignee")
-                        .WithMany()
-                        .HasForeignKey("AssigneeId");
-
-                    b.HasOne("ProjectSetupV2.Models.Context.BusinessValues", "BusinessValue")
-                        .WithMany()
-                        .HasForeignKey("BusinessValueId");
-
-                    b.HasOne("ProjectSetupV2.Models.Context.Clients", "Client")
-                        .WithMany()
-                        .HasForeignKey("ClientId");
-
-                    b.HasOne("ProjectSetupV2.Models.Context.Jobs", "Job")
-                        .WithMany()
-                        .HasForeignKey("JobId");
-
-                    b.HasOne("ProjectSetupV2.Models.Context.Tasks", "Task")
-                        .WithMany()
-                        .HasForeignKey("TaskId");
                 });
 
             modelBuilder.Entity("ProjectSetupV2.Models.Context.Jobs", b =>

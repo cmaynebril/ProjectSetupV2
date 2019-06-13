@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectSetupV2.Models.Context;
 
 namespace ProjectSetupV2.Migrations
 {
     [DbContext(typeof(DBProjectSetupContext))]
-    partial class DBProjectSetupContextModelSnapshot : ModelSnapshot
+    [Migration("20190613024808_JobTasks001")]
+    partial class JobTasks001
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,7 +31,11 @@ namespace ProjectSetupV2.Migrations
 
                     b.Property<long?>("AssigneeRate");
 
+                    b.Property<long?>("JobTasksId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("JobTasksId");
 
                     b.ToTable("Assignees");
                 });
@@ -45,10 +51,14 @@ namespace ProjectSetupV2.Migrations
                         .HasColumnName("business")
                         .HasColumnType("text");
 
+                    b.Property<long?>("JobTasksId");
+
                     b.Property<double>("Rate")
                         .HasColumnName("rate");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("JobTasksId");
 
                     b.ToTable("BusinessValues");
                 });
@@ -66,7 +76,11 @@ namespace ProjectSetupV2.Migrations
 
                     b.Property<string>("ContactPerson");
 
+                    b.Property<long?>("JobTasksId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("JobTasksId");
 
                     b.ToTable("Clients");
                 });
@@ -140,11 +154,15 @@ namespace ProjectSetupV2.Migrations
 
                     b.Property<double?>("JobRate");
 
+                    b.Property<long?>("JobTasksId");
+
                     b.Property<string>("Status");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
+
+                    b.HasIndex("JobTasksId");
 
                     b.ToTable("Jobs");
                 });
@@ -160,6 +178,8 @@ namespace ProjectSetupV2.Migrations
                     b.Property<long?>("JobId")
                         .HasColumnName("jobId");
 
+                    b.Property<long?>("JobTasksId");
+
                     b.Property<string>("Status");
 
                     b.Property<string>("Task")
@@ -173,6 +193,8 @@ namespace ProjectSetupV2.Migrations
                     b.HasIndex("BusinessValuesId");
 
                     b.HasIndex("JobId");
+
+                    b.HasIndex("JobTasksId");
 
                     b.ToTable("Tasks");
                 });
@@ -216,6 +238,27 @@ namespace ProjectSetupV2.Migrations
                     b.ToTable("InvoiceType");
                 });
 
+            modelBuilder.Entity("ProjectSetupV2.Models.Context.Assignees", b =>
+                {
+                    b.HasOne("ProjectSetupV2.Models.Context.JobTasks")
+                        .WithMany("Assignees")
+                        .HasForeignKey("JobTasksId");
+                });
+
+            modelBuilder.Entity("ProjectSetupV2.Models.Context.BusinessValues", b =>
+                {
+                    b.HasOne("ProjectSetupV2.Models.Context.JobTasks")
+                        .WithMany("BusinessValues")
+                        .HasForeignKey("JobTasksId");
+                });
+
+            modelBuilder.Entity("ProjectSetupV2.Models.Context.Clients", b =>
+                {
+                    b.HasOne("ProjectSetupV2.Models.Context.JobTasks")
+                        .WithMany("Clients")
+                        .HasForeignKey("JobTasksId");
+                });
+
             modelBuilder.Entity("ProjectSetupV2.Models.Context.JobTasks", b =>
                 {
                     b.HasOne("ProjectSetupV2.Models.Context.Assignees", "Assignee")
@@ -245,6 +288,10 @@ namespace ProjectSetupV2.Migrations
                         .WithMany("Jobs")
                         .HasForeignKey("ClientId")
                         .HasConstraintName("FK__Projects__Custom__398D8EEE");
+
+                    b.HasOne("ProjectSetupV2.Models.Context.JobTasks")
+                        .WithMany("Jobs")
+                        .HasForeignKey("JobTasksId");
                 });
 
             modelBuilder.Entity("ProjectSetupV2.Models.Context.Tasks", b =>
@@ -258,6 +305,10 @@ namespace ProjectSetupV2.Migrations
                         .WithMany("Tasks")
                         .HasForeignKey("JobId")
                         .HasConstraintName("FK__Tasks__Id__3E52440B");
+
+                    b.HasOne("ProjectSetupV2.Models.Context.JobTasks")
+                        .WithMany("Tasks")
+                        .HasForeignKey("JobTasksId");
                 });
 #pragma warning restore 612, 618
         }
