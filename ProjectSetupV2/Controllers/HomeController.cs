@@ -194,6 +194,54 @@ namespace ProjectSetupV2.Controllers
         {
             return View();
         }
+        public IActionResult Invoice()
+
+
+        {
+            var InvoiceType = _context.InvoiceType.ToList();
+            var InvoiceTypeList = new List<SelectListItem>();
+            foreach (var item in InvoiceType)
+            {
+                InvoiceTypeList.Add(new SelectListItem { Value = item.Id.ToString(), Text = item.Type.ToString() });
+            }
+            ViewBag.InvoiceType = InvoiceTypeList;
+
+            var model = new InvoiceViewModel();
+            var joblist = _context.Jobs.Where(x => x.Status == "Completed").ToList();
+            foreach (var p in joblist)
+            {
+                model.jobs.Add(new iJobs { Job = p.Job, Id = p.Id , JobRate = p.JobRate});
+            }
+
+            var tasklist = _context.Tasks.Where(x => x.Status == "Completed").ToList();
+            foreach (var t in tasklist)
+            {
+                model.tasks.Add(new iTasks { Task = t.Task, Id = t.Id,  TasksRate= t.TasksRate });
+            }
+
+            var BusVallist = _context.BusinessValues.ToList();
+            foreach (var b in BusVallist)
+            {
+                model.businessValues.Add(new iBusinessValues { Business = b.Business, Id = b.Id, Rate = b.Rate });
+            }
+
+            List<InvoiceType> invoices = new List<InvoiceType>();
+            invoices = (from Type in _context.InvoiceType
+                        select Type).ToList();
+            invoices.Insert(0, new InvoiceType { Id = 0, Type = "Select" });
+            ViewBag.InvoiceType = invoices;
+
+
+            return View(model);
+        }
+        public JsonResult GetClientCategory(int Id)
+        {
+            List<Clients> ClientsList = new List<Clients>();
+            ClientsList = (from client in _context.Clients
+                           select client).ToList();
+            ClientsList.Insert(0, new Clients { Id = 0, Client = "Select" });
+            return Json(new SelectList(ClientsList, "Id", "Client"));
+        }
 
     }
 
