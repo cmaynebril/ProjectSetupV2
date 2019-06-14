@@ -35,7 +35,7 @@ namespace ProjectSetupV2
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddDbContext<DBProjectSetupContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DBProjectSetupV2")));
+            services.AddDbContext<DBProjectSetupContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DBProjectSetup")));
             services.AddMvc()
             .AddJsonOptions(options => {
                 options.SerializerSettings.ReferenceLoopHandling =
