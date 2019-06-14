@@ -25,7 +25,7 @@ namespace ProjectSetupV2.Controllers
         }
 
         // GET: TimesheetsStatus/Details/5
-        public async Task<IActionResult> Details(long? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -65,7 +65,7 @@ namespace ProjectSetupV2.Controllers
         }
 
         // GET: TimesheetsStatus/Edit/5
-        public async Task<IActionResult> Edit(long? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -85,7 +85,7 @@ namespace ProjectSetupV2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,Status")] TimesheetsStatus timesheetsStatus)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Status")] TimesheetsStatus timesheetsStatus)
         {
             if (id != timesheetsStatus.Id)
             {
@@ -116,7 +116,7 @@ namespace ProjectSetupV2.Controllers
         }
 
         // GET: TimesheetsStatus/Delete/5
-        public async Task<IActionResult> Delete(long? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -136,7 +136,7 @@ namespace ProjectSetupV2.Controllers
         // POST: TimesheetsStatus/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(long id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var timesheetsStatus = await _context.TimesheetsStatus.FindAsync(id);
             _context.TimesheetsStatus.Remove(timesheetsStatus);
@@ -144,7 +144,7 @@ namespace ProjectSetupV2.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TimesheetsStatusExists(long id)
+        private bool TimesheetsStatusExists(int id)
         {
             return _context.TimesheetsStatus.Any(e => e.Id == id);
         }

@@ -37,7 +37,7 @@ namespace ProjectSetupV2.Controllers
 
         // GET: api/JobsAPI/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Jobs>> GetJobs(long id)
+        public async Task<ActionResult<Jobs>> GetJobs(int id)
         {
             var result = await (from j in _context.Jobs
                                 where j.ClientId == id
@@ -59,7 +59,7 @@ namespace ProjectSetupV2.Controllers
 
         // PUT: api/JobsAPI/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutJobs(long id, Jobs jobs)
+        public async Task<IActionResult> PutJobs(int id, Jobs jobs)
         {
             if (id != jobs.Id)
             {
@@ -99,7 +99,7 @@ namespace ProjectSetupV2.Controllers
 
         // DELETE: api/JobsAPI/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Jobs>> DeleteJobs(long id)
+        public async Task<ActionResult<Jobs>> DeleteJobs(int id)
         {
             var jobs = await _context.Jobs.FindAsync(id);
             if (jobs == null)
@@ -113,7 +113,7 @@ namespace ProjectSetupV2.Controllers
             return jobs;
         }
 
-        private bool JobsExists(long id)
+        private bool JobsExists(int id)
         {
             return _context.Jobs.Any(e => e.Id == id);
         }

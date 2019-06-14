@@ -26,7 +26,7 @@ namespace ProjectSetupV2.Controllers
         }
 
         // GET: Tasks/Details/5
-        public async Task<IActionResult> Details(long? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -81,7 +81,7 @@ namespace ProjectSetupV2.Controllers
         }
 
         // GET: Tasks/Edit/5
-        public async Task<IActionResult> Edit(long? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -111,7 +111,7 @@ namespace ProjectSetupV2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,Task,JobId,BusinessValuesId,TasksRate,Status")] Tasks tasks)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Task,JobId,BusinessValuesId,TasksRate,Status")] Tasks tasks)
         {
             if (id != tasks.Id)
             {
@@ -144,7 +144,7 @@ namespace ProjectSetupV2.Controllers
         }
 
         // GET: Tasks/Delete/5
-        public async Task<IActionResult> Delete(long? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -166,7 +166,7 @@ namespace ProjectSetupV2.Controllers
         // POST: Tasks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(long id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var tasks = await _context.Tasks.FindAsync(id);
             _context.Tasks.Remove(tasks);
@@ -174,7 +174,7 @@ namespace ProjectSetupV2.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TasksExists(long id)
+        private bool TasksExists(int id)
         {
             return _context.Tasks.Any(e => e.Id == id);
         }

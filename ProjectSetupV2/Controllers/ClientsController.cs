@@ -25,7 +25,7 @@ namespace ProjectSetupV2.Controllers
         }
 
         // GET: Clients/Details/5
-        public async Task<IActionResult> Details(long? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -65,7 +65,7 @@ namespace ProjectSetupV2.Controllers
         }
 
         // GET: Clients/Edit/5
-        public async Task<IActionResult> Edit(long? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -85,7 +85,7 @@ namespace ProjectSetupV2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,Client,ContactPerson")] Clients clients)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Client,ContactPerson")] Clients clients)
         {
             if (id != clients.Id)
             {
@@ -116,7 +116,7 @@ namespace ProjectSetupV2.Controllers
         }
 
         // GET: Clients/Delete/5
-        public async Task<IActionResult> Delete(long? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -136,7 +136,7 @@ namespace ProjectSetupV2.Controllers
         // POST: Clients/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(long id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var projectlist = _context.Jobs.Where(x => x.ClientId == id).ToList();
             foreach (var item in projectlist)
@@ -157,7 +157,7 @@ namespace ProjectSetupV2.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ClientsExists(long id)
+        private bool ClientsExists(int id)
         {
             return _context.Clients.Any(e => e.Id == id);
         }

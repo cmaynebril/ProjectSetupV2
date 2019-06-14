@@ -36,7 +36,7 @@ namespace ProjectSetupV2.Controllers
 
         // GET: api/ClientsAPI/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Clients>> GetClients(long id)
+        public async Task<ActionResult<Clients>> GetClients(int id)
         {
             var result = await (from c in _context.Clients
                                 where c.Id == id
@@ -52,7 +52,7 @@ namespace ProjectSetupV2.Controllers
 
         // PUT: api/ClientsAPI/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutClients(long id, Clients clients)
+        public async Task<IActionResult> PutClients(int id, Clients clients)
         {
             if (id != clients.Id)
             {
@@ -92,7 +92,7 @@ namespace ProjectSetupV2.Controllers
 
         // DELETE: api/ClientsAPI/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Clients>> DeleteClients(long id)
+        public async Task<ActionResult<Clients>> DeleteClients(int id)
         {
             var clients = await _context.Clients.FindAsync(id);
             if (clients == null)
@@ -106,7 +106,7 @@ namespace ProjectSetupV2.Controllers
             return clients;
         }
 
-        private bool ClientsExists(long id)
+        private bool ClientsExists(int id)
         {
             return _context.Clients.Any(e => e.Id == id);
         }

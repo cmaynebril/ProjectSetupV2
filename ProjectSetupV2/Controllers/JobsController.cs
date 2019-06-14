@@ -26,7 +26,7 @@ namespace ProjectSetupV2.Controllers
         }
 
         // GET: Jobs/Details/5
-        public async Task<IActionResult> Details(long? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -79,7 +79,7 @@ namespace ProjectSetupV2.Controllers
         }
 
         // GET: Jobs/Edit/5
-        public async Task<IActionResult> Edit(long? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -107,7 +107,7 @@ namespace ProjectSetupV2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, Jobs jobs)
+        public async Task<IActionResult> Edit(int id, Jobs jobs)
         {
             if (id != jobs.Id)
             {
@@ -140,7 +140,7 @@ namespace ProjectSetupV2.Controllers
         }
 
         // GET: Jobs/Delete/5
-        public async Task<IActionResult> Delete(long? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -161,7 +161,7 @@ namespace ProjectSetupV2.Controllers
         // POST: Jobs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(long id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var taskslist = _context.Tasks.Where(x => x.JobId == id).ToList();
             foreach (var item in taskslist)
@@ -176,7 +176,7 @@ namespace ProjectSetupV2.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool JobsExists(long id)
+        private bool JobsExists(int id)
         {
             return _context.Jobs.Any(e => e.Id == id);
         }

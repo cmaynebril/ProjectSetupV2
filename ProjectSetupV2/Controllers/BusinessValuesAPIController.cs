@@ -36,7 +36,7 @@ namespace ProjectSetupV2.Controllers
 
         // GET: api/BusinessValuesAPI/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<BusinessValues>> GetBusinessValues(long id)
+        public async Task<ActionResult<BusinessValues>> GetBusinessValues(int id)
         {
             var result = await (from j in _context.BusinessValues
                                 where j.Id == id
@@ -51,7 +51,7 @@ namespace ProjectSetupV2.Controllers
 
         // PUT: api/BusinessValuesAPI/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBusinessValues(long id, BusinessValues businessValues)
+        public async Task<IActionResult> PutBusinessValues(int id, BusinessValues businessValues)
         {
             if (id != businessValues.Id)
             {
@@ -91,7 +91,7 @@ namespace ProjectSetupV2.Controllers
 
         // DELETE: api/BusinessValuesAPI/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<BusinessValues>> DeleteBusinessValues(long id)
+        public async Task<ActionResult<BusinessValues>> DeleteBusinessValues(int id)
         {
             var businessValues = await _context.BusinessValues.FindAsync(id);
             if (businessValues == null)
@@ -105,7 +105,7 @@ namespace ProjectSetupV2.Controllers
             return businessValues;
         }
 
-        private bool BusinessValuesExists(long id)
+        private bool BusinessValuesExists(int id)
         {
             return _context.BusinessValues.Any(e => e.Id == id);
         }

@@ -62,7 +62,7 @@ namespace ProjectSetupV2.Controllers
 
         // GET: api/jobs/user/tasks/fill/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<JobTasks>> GetTimesheet(long id)
+        public async Task<ActionResult<JobTasks>> GetTimesheet(int id)
         {
             var result = await (from a in _context.JobTasks
                                 where (a.Id == id)
@@ -106,7 +106,7 @@ namespace ProjectSetupV2.Controllers
 
         // PUT: api/JobTasksAPI/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTimesheet(long id, JobTasks jobTasks)
+        public async Task<IActionResult> PutTimesheet(int id, JobTasks jobTasks)
         {
             if (id != jobTasks.Id)
             {
@@ -146,7 +146,7 @@ namespace ProjectSetupV2.Controllers
 
         // DELETE: api/JobTasksAPI/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<JobTasks>> DeleteTimesheet(long id)
+        public async Task<ActionResult<JobTasks>> DeleteTimesheet(int id)
         {
             var timesheet = await _context.JobTasks.FindAsync(id);
             if (timesheet == null)
@@ -160,7 +160,7 @@ namespace ProjectSetupV2.Controllers
             return timesheet;
         }
 
-        private bool TimesheetExists(long id)
+        private bool TimesheetExists(int id)
         {
             return _context.JobTasks.Any(e => e.Id == id);
         }
