@@ -22,14 +22,14 @@ namespace ProjectSetupV2.Models.Context
         public long Id { get; set; }
         [DataType(DataType.Date)]
         public DateTime? Date { get; set; }
-        public long TaskId { get; set; }
+        public int TaskId { get; set; }
         public string Status { get; set; }
         public string Description { get; set; }
-        public double TimeSpent { get; set; }
-        public long JobId { get; set; }
-        public long ClientId { get; set; }
-        public long BusinessValueId { get; set; }
-        public long AssigneeId { get; set; }
+        public int TotalTime { get; set; }
+        public int JobId { get; set; }
+        public int ClientId { get; set; }
+        public int BusinessValueId { get; set; }
+        public int AssigneeId { get; set; }
 
         public IList<tClients> client { get; set; }
         public IList<tJobs> job { get; set; }

@@ -5,7 +5,7 @@ namespace ProjectSetupV2.Models.Context
 {
     public partial class TimesheetsStatus
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
         public string Status { get; set; }
 
 

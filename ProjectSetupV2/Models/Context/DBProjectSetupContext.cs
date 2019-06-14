@@ -26,6 +26,7 @@ namespace ProjectSetupV2.Models.Context
         public virtual DbSet<TimesheetsStatus> TimesheetsStatus { get; set; }
         public virtual DbSet<InvoiceType> InvoiceType { get; set; }
         public virtual DbSet<JobTasks> JobTasks { get; set; }
+        public virtual DbSet<TaskTimesheet> TaskTimesheet { get; set; }
 
 
 
@@ -33,7 +34,7 @@ namespace ProjectSetupV2.Models.Context
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=.;Database=DBProjectSetupV2;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=.;Database=DBProjectSetup;Trusted_Connection=True;");
             }
         }
 

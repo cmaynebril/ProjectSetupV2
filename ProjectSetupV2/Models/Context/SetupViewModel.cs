@@ -17,9 +17,9 @@ namespace ProjectSetupV2.Models.Context
 
         }
 
-        public long Id { get; set; }
+        public int Id { get; set; }
         public string CustomerName { get; set; }
-        public long? CustomerId { get; set; }
+        public int? CustomerId { get; set; }
         public string Job { get; set; }
         [NotMapped]
         public string[] TaskName { get; set; }
@@ -33,31 +33,31 @@ namespace ProjectSetupV2.Models.Context
 
     public class xCustomers
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
         public string CustomerName { get; set; }
     }
 
     public class xJobs
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
         public string Job { get; set; }
         public string CustomerName { get; set; }
-        public long? CustomerId { get; set; }
+        public int? CustomerId { get; set; }
         public double? JobRate { get; set; }
 
     }
 
     public class xTasks
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
         public string TaskName { get; set; }
-        public long? ProjectId { get; set; }
-        public long? BusinessValuesId { get; set; }
+        public int? ProjectId { get; set; }
+        public int? BusinessValuesId { get; set; }
     }
 
     public class xBusinessValues
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
         public string Business { get; set; }
         public double Rate { get; set; }
     }

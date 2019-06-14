@@ -12,7 +12,7 @@ namespace ProjectSetupV2.Models.Context
             Jobs = new HashSet<Jobs>();
         }
 
-        public long Id { get; set; }
+        public int Id { get; set; }
         public string Client { get; set; }
         public string ContactPerson { get; set; }
 

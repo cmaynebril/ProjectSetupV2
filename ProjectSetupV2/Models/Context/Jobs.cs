@@ -10,10 +10,10 @@ namespace ProjectSetupV2.Models.Context
             Tasks = new HashSet<Tasks>();
         }
 
-        public long Id { get; set; }
+        public int Id { get; set; }
         public string Job { get; set; }
         public string ClientName { get; set; }
-        public long? ClientId { get; set; }
+        public int? ClientId { get; set; }
         public double? JobRate { get; set; }
         public string Status { get; set; }
 

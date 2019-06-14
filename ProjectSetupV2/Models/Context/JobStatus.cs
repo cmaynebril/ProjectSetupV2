@@ -7,7 +7,7 @@ namespace ProjectSetupV2.Models.Context
 {
     public class JobStatus
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
         public string Status { get; set; }
     }
 }
