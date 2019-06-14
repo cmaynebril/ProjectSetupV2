@@ -1,0 +1,84 @@
+﻿@model ProjectSetupV2.Models.Context.InvoiceViewModel
+
+@{
+    ViewData["Title"] = "Invoice";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Invoice</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Invoice">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <select id="invoiceType" asp-items="@(new SelectList(ViewBag.InvoiceType, "Id", "Type"))" class="form-control"></select>
+            </div>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Rate
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="invoice"></tbody>
+            </table>
+        </form>
+    </div>
+</div>
+
+
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var items = "<option value = '0'>Select</option>";
+            //$('#JobId').html(items);
+            //$('#TaskId').html(items);
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#invoiceType').change(function () {
+
+                var invoice = $(this).children("option:selected").val();
+                $('tbody tr').remove();
+
+                if (invoice == 1) {
+                    $('table tbody').append('<tr><td>Christopher May Nebril</td><td>100</td><td><a href="#">Invoice</a></td></tr>');
+                    $('table tbody').append('<tr><td>Carlo Montemayor</td><td>100</td><td><a href="#">Invoice</a></td></tr>');
+
+                } else if (invoice == 2) {
+
+                    @foreach (var a in Model.jobs)
+                     {
+                        @: $('table tbody').append('<tr><td>@a.Job</td><td>@a.JobRate</td><td><a href="#">Invoice</a></td></tr>');
+                     }
+                } else if (invoice == 3) {
+                    @foreach (var a in Model.tasks)
+                     {
+                        @: $('table tbody').append('<tr><td>@a.Task</td><td>@a.TasksRate</td><td><a href="#">Invoice</a></td></tr>');
+                     }
+                } else if (invoice == 4) {
+                    @foreach (var a in Model.businessValues)
+                     {
+                        @: $('table tbody').append('<tr><td>@a.Business</td><td>@a.Rate</td><td><a href="#">Invoice</a></td></tr>');
+                     }
+                }
+            });
+
+        });
+    </script>
+
+
+
+
+}
