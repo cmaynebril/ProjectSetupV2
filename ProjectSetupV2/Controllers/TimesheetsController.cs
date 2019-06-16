@@ -126,15 +126,26 @@ namespace ProjectSetupV2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Date,TaskId,Status,Description,TimeSpent,JobId,ClientId,BusinessValueId,AssigneeId")] JobTasks jobTasks)
+        public async Task<IActionResult> Create(TimesheetViewModel model)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(jobTasks);
+                var jobtask = new JobTasks();
+                jobtask.Date = model.Date;
+                jobtask.Status = model.Status;
+                jobtask.Description = model.Description;
+                jobtask.TotalTime = model.TotalTime;
+                jobtask.AssigneeId = model.AssigneeId;
+                jobtask.BusinessValueId = model.BusinessValueId;
+                jobtask.ClientId = model.ClientId;
+                jobtask.JobId = model.JobId;
+                jobtask.TaskId = model.TaskId;
+
+                var dbjobtask = _context.Add(jobtask);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(jobTasks);
+            return View();
         }
 
         // GET: Timesheets/Edit/5
