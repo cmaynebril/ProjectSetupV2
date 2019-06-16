@@ -43,14 +43,20 @@ namespace ProjectSetupV2.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<JobTasks>> GetJobTasks(int id)
         {
-            var jobTasks = await _context.JobTasks.FindAsync(id);
+            var result = await (from a in _context.JobTasks
+                                where (a.Id == id)
+                                select new
+                                {
+                                    a.Id,
+                                    a.Client.Client,
+                                    a.Job.Job,
+                                    a.Task.Task,
+                                    a.Date,
+                                    totalTimeSpent = a.TotalTime,
+                                    assigneeId = a.Assignee.Id
 
-            if (jobTasks == null)
-            {
-                return NotFound();
-            }
-
-            return jobTasks;
+                                }).ToListAsync();
+            return Ok(result);
         }
 
         // PUT: api/TaskTimesheetAPI/5
