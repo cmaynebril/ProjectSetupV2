@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +18,7 @@ namespace ProjectSetupV2.Controllers
         {
             _context = context;
         }
-
+        [Authorize]
         // GET: Timesheets
         //public async Task<IActionResult> Index()
         public IActionResult Index()
@@ -134,7 +135,7 @@ namespace ProjectSetupV2.Controllers
                 jobtask.Date = model.Date;
                 jobtask.Status = model.Status;
                 jobtask.Description = model.Description;
-                jobtask.TotalTime = model.TotalTime;
+                jobtask.TimeSpent = model.TotalTime;
                 jobtask.AssigneeId = model.AssigneeId;
                 jobtask.BusinessValueId = model.BusinessValueId;
                 jobtask.ClientId = model.ClientId;
