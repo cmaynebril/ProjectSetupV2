@@ -1,19 +1,22 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using ProjectSetupV2.Models.Context;
 
 namespace ProjectSetupV2.Models.Context
 {
-    public partial class DBProjectSetupContext : DbContext
+    public partial class DBProjectSetupContext : IdentityDbContext<User, UserRole, int>
+
     {
-        public DBProjectSetupContext()
-        {
-        }
+        //public DBProjectSetupContext()
+        //{
+        //}
 
         public DBProjectSetupContext(DbContextOptions<DBProjectSetupContext> options)
             : base(options)
         {
+
         }
 
         public virtual DbSet<BusinessValues> BusinessValues { get; set; }
@@ -27,71 +30,75 @@ namespace ProjectSetupV2.Models.Context
         public virtual DbSet<InvoiceType> InvoiceType { get; set; }
         public virtual DbSet<JobTasks> JobTasks { get; set; }
         public virtual DbSet<TaskTimesheet> TaskTimesheet { get; set; }
+        public virtual DbSet<Leave> Leave { get; set; }
+        public virtual DbSet<LeaveApprover> LeaveApprover { get; set; }
 
 
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    if (!optionsBuilder.IsConfigured)
+        //    {
+        //        optionsBuilder.UseSqlServer("Server=.;Database=DBProjectSetup;Trusted_Connection=True;");
+        //    }
+        //}
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder) 
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("Server=.;Database=DBProjectSetup;Trusted_Connection=True;");
-            }
-        }
+            base.OnModelCreating(modelBuilder);
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.HasAnnotation("ProductVersion", "2.2.3-servicing-35854");
+            //modelBuilder.HasAnnotation("ProductVersion", "2.2.3-servicing-35854");
 
-            modelBuilder.Entity<BusinessValues>(entity =>
-            {
-                entity.Property(e => e.Business)
-                    .IsRequired()
-                    .HasColumnName("business")
-                    .HasColumnType("text");
+            //modelBuilder.Entity<BusinessValues>(entity =>
+            //{
+            //    entity.Property(e => e.Business)
+            //        .IsRequired()
+            //        .HasColumnName("business")
+            //        .HasColumnType("text");
 
-                entity.Property(e => e.Rate).HasColumnName("rate");
-            });
+            //    entity.Property(e => e.Rate).HasColumnName("rate");
+            //});
 
-            modelBuilder.Entity<Clients>(entity =>
-            {
-                entity.Property(e => e.Client)
-                    .IsRequired()
-                    .HasColumnName("client")
-                    .HasColumnType("text");
-            });
+            //modelBuilder.Entity<Clients>(entity =>
+            //{
+            //    entity.Property(e => e.Client)
+            //        .IsRequired()
+            //        .HasColumnName("client")
+            //        .HasColumnType("text");
+            //});
 
-            modelBuilder.Entity<Jobs>(entity =>
-            {
-                entity.Property(e => e.ClientName).HasColumnType("text");
+            //modelBuilder.Entity<Jobs>(entity =>
+            //{
+            //    entity.Property(e => e.ClientName).HasColumnType("text");
 
-                entity.Property(e => e.Job)
-                    .HasColumnName("job")
-                    .HasColumnType("text");
+            //    entity.Property(e => e.Job)
+            //        .HasColumnName("job")
+            //        .HasColumnType("text");
 
-                entity.HasOne(d => d.Client)
-                    .WithMany(p => p.Jobs)
-                    .HasForeignKey(d => d.ClientId)
-                    .HasConstraintName("FK__Projects__Custom__398D8EEE");
-            });
+            //    entity.HasOne(d => d.Client)
+            //        .WithMany(p => p.Jobs)
+            //        .HasForeignKey(d => d.ClientId)
+            //        .HasConstraintName("FK__Projects__Custom__398D8EEE");
+            //});
 
-            modelBuilder.Entity<Tasks>(entity =>
-            {
-                entity.Property(e => e.JobId).HasColumnName("jobId");
+            //modelBuilder.Entity<Tasks>(entity =>
+            //{
+            //    entity.Property(e => e.JobId).HasColumnName("jobId");
 
-                entity.Property(e => e.Task)
-                    .HasColumnName("task")
-                    .HasColumnType("text");
+            //    entity.Property(e => e.Task)
+            //        .HasColumnName("task")
+            //        .HasColumnType("text");
 
-                entity.HasOne(d => d.BusinessValues)
-                    .WithMany(p => p.Tasks)
-                    .HasForeignKey(d => d.BusinessValuesId)
-                    .HasConstraintName("FK__Tasks__Id__3F466844");
+            //    entity.HasOne(d => d.BusinessValues)
+            //        .WithMany(p => p.Tasks)
+            //        .HasForeignKey(d => d.BusinessValuesId)
+            //        .HasConstraintName("FK__Tasks__Id__3F466844");
 
-                entity.HasOne(d => d.Job)
-                    .WithMany(p => p.Tasks)
-                    .HasForeignKey(d => d.JobId)
-                    .HasConstraintName("FK__Tasks__Id__3E52440B");
-            });
+            //    entity.HasOne(d => d.Job)
+            //        .WithMany(p => p.Tasks)
+            //        .HasForeignKey(d => d.JobId)
+            //        .HasConstraintName("FK__Tasks__Id__3E52440B");
+            //});
         }
 
 
