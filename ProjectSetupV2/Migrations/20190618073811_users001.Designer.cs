@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectSetupV2.Models.Context;
 
 namespace ProjectSetupV2.Migrations
 {
     [DbContext(typeof(DBProjectSetupContext))]
-    partial class DBProjectSetupContextModelSnapshot : ModelSnapshot
+    [Migration("20190618073811_users001")]
+    partial class users001
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -232,13 +234,11 @@ namespace ProjectSetupV2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("EndDate")
-                        .HasColumnType("Date");
+                    b.Property<DateTime?>("EndDate");
 
                     b.Property<string>("Reason");
 
-                    b.Property<DateTime?>("StartDate")
-                        .HasColumnType("Date");
+                    b.Property<DateTime?>("StartDate");
 
                     b.Property<string>("Status");
 
@@ -251,25 +251,6 @@ namespace ProjectSetupV2.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Leave");
-                });
-
-            modelBuilder.Entity("ProjectSetupV2.Models.Context.LeaveApprover", b =>
-                {
-                    b.Property<int>("ApproverId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Approver");
-
-                    b.Property<int>("LeaveId");
-
-                    b.Property<string>("Status");
-
-                    b.HasKey("ApproverId");
-
-                    b.HasIndex("LeaveId");
-
-                    b.ToTable("LeaveApprover");
                 });
 
             modelBuilder.Entity("ProjectSetupV2.Models.Context.TaskTimesheet", b =>
@@ -368,7 +349,7 @@ namespace ProjectSetupV2.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
 
-                    b.Property<int>("ManagerId");
+                    b.Property<string>("ManagerId");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
@@ -533,14 +514,6 @@ namespace ProjectSetupV2.Migrations
                     b.HasOne("ProjectSetupV2.Models.Context.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("ProjectSetupV2.Models.Context.LeaveApprover", b =>
-                {
-                    b.HasOne("ProjectSetupV2.Models.Context.Leave", "Leave")
-                        .WithMany("LeaveApprover")
-                        .HasForeignKey("LeaveId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
