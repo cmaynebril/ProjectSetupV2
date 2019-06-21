@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NetCore.Jwt;
 using ProjectSetupV2.Models.Context;
+using System;
 
 namespace ProjectSetupV2
 {
@@ -37,6 +34,14 @@ namespace ProjectSetupV2
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<DBProjectSetupContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DBProjectSetup")));
+
+            //services.AddAuthentication(NetCoreJwtDefaults.SchemeName).AddNetCoreJwt();
+            services.AddAuthentication().AddNetCoreJwt(options => {
+                options.Expiary = TimeSpan.FromHours(1);
+                options.Secret = "48ty390yt5h3wosilrghnberolighnjwoligtnjloi4kjtm223";
+                // long random string. only if you put this, even after restarting the api the JWT will be valid
+            });
+
             services.AddDefaultIdentity<User>().AddEntityFrameworkStores<DBProjectSetupContext>().AddDefaultUI();
             services.AddMvc()
             .AddJsonOptions(options => {
