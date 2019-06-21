@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NetCore.Jwt;
 using ProjectSetupV2.Models.Context;
 
 namespace ProjectSetupV2.Controllers.APIs
 {
+    [Authorize(AuthenticationSchemes = NetCoreJwtDefaults.SchemeName)]
     [Route("api/jobs/tasks")]
     [ApiController]
     public class TasksAPIController : ControllerBase

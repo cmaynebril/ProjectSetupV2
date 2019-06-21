@@ -2,17 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NetCore.Jwt;
 using ProjectSetupV2.Models.Context;
 
 namespace ProjectSetupV2.Controllers
 {
+    [Authorize(AuthenticationSchemes = NetCoreJwtDefaults.SchemeName)]
+
     [Route("api/[controller]")]
     [ApiController]
     public class TaskTimesheetsController : ControllerBase
     {
+
         private readonly DBProjectSetupContext _context;
 
         public TaskTimesheetsController(DBProjectSetupContext context)

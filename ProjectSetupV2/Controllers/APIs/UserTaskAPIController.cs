@@ -2,17 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NetCore.Jwt;
 using ProjectSetupV2.Models.Context;
 
 namespace ProjectSetupV2.Controllers.APIs
 {
+    [Authorize(AuthenticationSchemes = NetCoreJwtDefaults.SchemeName)]
     [Route("api/jobs/user/tasks")]
     [ApiController]
     public class UserTaskController : ControllerBase
     {
+        
         private readonly DBProjectSetupContext _context;
 
         public UserTaskController(DBProjectSetupContext context)
@@ -21,6 +25,7 @@ namespace ProjectSetupV2.Controllers.APIs
         }
 
         // GET: api/jobs/user/tasks
+        
         [HttpGet]
         public async Task<ActionResult<IEnumerable<JobTasks>>> GetJobTasks()
         {
