@@ -53,9 +53,12 @@
                 $('tbody tr').remove();
 
                 if (invoice == 1) {
-                    $('table tbody').append('<tr><td>Christopher May Nebril</td><td>100</td><td><a href="#">Invoice</a></td></tr>');
-                    $('table tbody').append('<tr><td>Carlo Montemayor</td><td>100</td><td><a href="#">Invoice</a></td></tr>');
-
+                    //$('table tbody').append('<tr><td>Christopher May Nebril</td><td>100</td><td><a href="#">Invoice</a></td></tr>');
+                    //$('table tbody').append('<tr><td>Carlo Montemayor</td><td>100</td><td><a href="#">Invoice</a></td></tr>');
+                      @foreach (var a in Model.user)
+                     {
+                        @: $('table tbody').append('<tr><td>@a.UserName</td><td>@a.Rate</td><td><a href="#">Invoice</a></td></tr>');
+                     }
                 } else if (invoice == 2) {
 
                     @foreach (var a in Model.jobs)
