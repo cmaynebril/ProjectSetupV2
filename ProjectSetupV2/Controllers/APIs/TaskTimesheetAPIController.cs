@@ -33,10 +33,20 @@ namespace ProjectSetupV2.Controllers.APIs
                                     a.Id,
                                     a.Client.Client,
                                     a.Job.Job,
+                                    a.Description,
                                     a.Task.Task,
-                                    Date = a.Date.Value.ToString("yyyy-MM-dd"),
+                                    a.Status,
+                                    DateCreated = a.DateCreated.Value.ToString("yyyy-MM-dd"),
                                     totalTimeSpent = a.TimeSpent,
-                                    assigneeId = a.Assignee.Id
+                                    a.BusinessValueId,
+                                    invoiceTypeId = new {
+                                        a.InvoiceType.Id,
+                                        a.InvoiceType.Type
+                                    },
+                                    assigneeId = new {
+                                        a.User.Id,
+                                        a.User.UserName
+                                    }
 
                                 }).ToListAsync();
             return Ok(result);
@@ -53,11 +63,22 @@ namespace ProjectSetupV2.Controllers.APIs
                                     a.Id,
                                     a.Client.Client,
                                     a.Job.Job,
+                                    a.Description,
                                     a.Task.Task,
-                                    a.Date,
+                                    a.Status,
+                                    DateCreated = a.DateCreated.Value.ToString("yyyy-MM-dd"),
                                     totalTimeSpent = a.TimeSpent,
-                                    assigneeId = a.Assignee.Id
-
+                                    a.BusinessValueId,
+                                    invoiceTypeId = new
+                                    {
+                                        a.InvoiceType.Id,
+                                        a.InvoiceType.Type
+                                    },
+                                    assigneeId = new
+                                    {
+                                        a.User.Id,
+                                        a.User.UserName
+                                    }
                                 }).ToListAsync();
             return Ok(result);
         }
