@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectSetupV2.Models.Context;
 
 namespace ProjectSetupV2.Migrations
 {
     [DbContext(typeof(DBProjectSetupContext))]
-    partial class DBProjectSetupContextModelSnapshot : ModelSnapshot
+    [Migration("20190624005837_tasks1")]
+    partial class tasks1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -151,19 +153,6 @@ namespace ProjectSetupV2.Migrations
                     b.ToTable("Clients");
                 });
 
-            modelBuilder.Entity("ProjectSetupV2.Models.Context.InvoiceType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Type");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("InvoiceType");
-                });
-
             modelBuilder.Entity("ProjectSetupV2.Models.Context.JobStatus", b =>
                 {
                     b.Property<int>("Id")
@@ -189,12 +178,10 @@ namespace ProjectSetupV2.Migrations
 
                     b.Property<int>("ClientId");
 
-                    b.Property<DateTime?>("DateCreated")
+                    b.Property<DateTime?>("Date")
                         .HasColumnType("Date");
 
                     b.Property<string>("Description");
-
-                    b.Property<int>("InvoiceTypeId");
 
                     b.Property<int>("JobId");
 
@@ -211,8 +198,6 @@ namespace ProjectSetupV2.Migrations
                     b.HasIndex("BusinessValueId");
 
                     b.HasIndex("ClientId");
-
-                    b.HasIndex("InvoiceTypeId");
 
                     b.HasIndex("JobId");
 
@@ -403,8 +388,6 @@ namespace ProjectSetupV2.Migrations
 
                     b.Property<string>("Position");
 
-                    b.Property<int>("Rate");
-
                     b.Property<string>("Section");
 
                     b.Property<string>("SecurityStamp");
@@ -456,6 +439,19 @@ namespace ProjectSetupV2.Migrations
                     b.ToTable("AspNetRoles");
                 });
 
+            modelBuilder.Entity("ProjectSetupV2.Models.InvoiceType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Type");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("InvoiceType");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("ProjectSetupV2.Models.Context.UserRole")
@@ -503,7 +499,7 @@ namespace ProjectSetupV2.Migrations
 
             modelBuilder.Entity("ProjectSetupV2.Models.Context.JobTasks", b =>
                 {
-                    b.HasOne("ProjectSetupV2.Models.Context.User", "User")
+                    b.HasOne("ProjectSetupV2.Models.Context.Assignees", "Assignee")
                         .WithMany()
                         .HasForeignKey("AssigneeId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -516,11 +512,6 @@ namespace ProjectSetupV2.Migrations
                     b.HasOne("ProjectSetupV2.Models.Context.Clients", "Client")
                         .WithMany()
                         .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("ProjectSetupV2.Models.Context.InvoiceType", "InvoiceType")
-                        .WithMany()
-                        .HasForeignKey("InvoiceTypeId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("ProjectSetupV2.Models.Context.Jobs", "Job")

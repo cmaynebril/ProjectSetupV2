@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectSetupV2.Models.Context;
 
 namespace ProjectSetupV2.Migrations
 {
     [DbContext(typeof(DBProjectSetupContext))]
-    partial class DBProjectSetupContextModelSnapshot : ModelSnapshot
+    [Migration("20190624053923_invoice")]
+    partial class invoice
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -189,12 +191,12 @@ namespace ProjectSetupV2.Migrations
 
                     b.Property<int>("ClientId");
 
-                    b.Property<DateTime?>("DateCreated")
+                    b.Property<DateTime?>("Date")
                         .HasColumnType("Date");
 
                     b.Property<string>("Description");
 
-                    b.Property<int>("InvoiceTypeId");
+                    b.Property<int?>("InvoiceTypeId");
 
                     b.Property<int>("JobId");
 
@@ -520,8 +522,7 @@ namespace ProjectSetupV2.Migrations
 
                     b.HasOne("ProjectSetupV2.Models.Context.InvoiceType", "InvoiceType")
                         .WithMany()
-                        .HasForeignKey("InvoiceTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("InvoiceTypeId");
 
                     b.HasOne("ProjectSetupV2.Models.Context.Jobs", "Job")
                         .WithMany()
