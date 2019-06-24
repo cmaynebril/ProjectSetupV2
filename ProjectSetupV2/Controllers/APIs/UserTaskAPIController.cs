@@ -39,9 +39,9 @@ namespace ProjectSetupV2.Controllers.APIs
                                     timeSpent = a.TimeSpent,
                                     jobId = a.Job.Id,
                                     clientId = a.Client.Id,
+                                    dateCreated = a.DateCreated.Value.ToString("MM-dd-yyyy"),
                                     businessValueId = a.BusinessValue.Id,
-                                    assigneeId = a.Assignee.Id
-
+                                    assigneeId = a.User.Id
                                 }).ToListAsync();
             return Ok(result);
         }
@@ -62,9 +62,9 @@ namespace ProjectSetupV2.Controllers.APIs
                                     timeSpent = a.TimeSpent,
                                     jobId = a.Job.Id,
                                     clientId = a.Client.Id,
+                                    dateCreated = a.DateCreated.Value.ToString("MM-dd-yyyy"),
                                     businessValueId = a.BusinessValue.Id,
-                                    assigneeId = a.Assignee.Id
-
+                                    assigneeId = a.User.Id
                                 }).ToListAsync();
             return Ok(result);
         }

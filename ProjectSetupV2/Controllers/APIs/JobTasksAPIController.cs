@@ -55,8 +55,8 @@ namespace ProjectSetupV2.Controllers.APIs
                                         a.BusinessValue.Rate
                                     },
                                     Assignee = new {
-                                        a.Assignee.Id,
-                                        a.Assignee.Assignee
+                                        a.User.Id,
+                                        a.User.UserName
                                     }
 
                                 }).ToListAsync();
@@ -99,8 +99,8 @@ namespace ProjectSetupV2.Controllers.APIs
                                     },
                                     Assignees = new
                                     {
-                                        a.Assignee.Id,
-                                        a.Assignee.Assignee
+                                        a.User.Id,
+                                        a.User.UserName
                                     }
 
                                 }).ToListAsync();
