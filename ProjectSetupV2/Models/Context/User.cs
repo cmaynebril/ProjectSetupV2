@@ -14,5 +14,6 @@ namespace ProjectSetupV2.Models.Context
         public string Position { get; set; }
         public string Department { get; set; }
         public string Section { get; set; }
+        public int Rate { get; set; }
     }
 }

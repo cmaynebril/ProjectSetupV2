@@ -11,10 +11,12 @@ namespace ProjectSetupV2.Models.Context
     {
         public int Id { get; set; }
         [Column(TypeName = "Date")]
-        public DateTime? Date { get; set; }
+        public DateTime? DateCreated { get; set; }
         public string Status { get; set; }
         public string Description { get; set; }
         public double TimeSpent { get; set; }
+        [ForeignKey("InvoiceType")]
+        public int InvoiceTypeId { get; set; }
         [ForeignKey("Task")]
         public int TaskId { get; set; }
         [ForeignKey("Job")]
@@ -23,13 +25,14 @@ namespace ProjectSetupV2.Models.Context
         public int ClientId { get; set; }
         [ForeignKey("BusinessValue")]
         public int BusinessValueId { get; set; }
-        [ForeignKey("Assignee")]
+        [ForeignKey("User")]
         public int AssigneeId { get; set; }
 
         public Tasks Task { get; set; } //this should be foreign key to table task
         public Jobs Job { get; set; } //this should be foreign key to table job
         public Clients Client { get; set; } //this should be foreign key to table client
         public BusinessValues BusinessValue { get; set; } //this should be foreign key to table businessvalue
-        public Assignees Assignee { get; set; } //this should be foreign key to table assignee
+        public User User { get; set; } //this should be foreign key to table assignee
+        public InvoiceType InvoiceType { get; set; } //this should be foreign key to table InvoiceType
     }
 }

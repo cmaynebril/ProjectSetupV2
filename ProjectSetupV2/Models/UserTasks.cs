@@ -11,9 +11,5 @@ namespace ProjectSetupV2.Models
         public string Description { get; set; }
         public string Status { get; set; }
         public string TotalTime { get; set; }
-
-
-
-
     }
 }

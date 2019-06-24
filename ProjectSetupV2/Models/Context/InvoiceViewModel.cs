@@ -14,6 +14,7 @@ namespace ProjectSetupV2.Models.Context
             jobs = new List<iJobs>();
             tasks = new List<iTasks>();
             businessValues = new List<iBusinessValues>();
+            user = new List<iUser>();
         }
 
         public long Id { get; set; }
@@ -27,6 +28,7 @@ namespace ProjectSetupV2.Models.Context
         public IList<iJobs> jobs { get; set; }
         public IList<iTasks> tasks { get; set; }
         public IList<iBusinessValues> businessValues { get; set; }
+        public IList<iUser> user { get; set; }
     }
 
     public class iCustomers
@@ -60,6 +62,12 @@ namespace ProjectSetupV2.Models.Context
         public long Id { get; set; }
         public string Business { get; set; }
         public double Rate { get; set; }
+    }
+    public class iUser
+    {
+        public long Id { get; set; }
+        public string UserName { get; set; }
+        public int Rate { get; set; }
     }
 
 }
