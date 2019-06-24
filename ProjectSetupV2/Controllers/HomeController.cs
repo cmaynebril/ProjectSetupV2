@@ -209,13 +209,13 @@ namespace ProjectSetupV2.Controllers
             ViewBag.InvoiceType = InvoiceTypeList;
 
             var model = new InvoiceViewModel();
-            var joblist = _context.Jobs.Where(x => x.Status == "Completed").ToList();
+            var joblist = _context.Jobs.Where(x => x.Status == "Done").ToList();
             foreach (var p in joblist)
             {
                 model.jobs.Add(new iJobs { Job = p.Job, Id = p.Id , JobRate = p.JobRate});
             }
 
-            var tasklist = _context.Tasks.Where(x => x.Status == "Completed").ToList();
+            var tasklist = _context.Tasks.Where(x => x.Status == "Done").ToList();
             foreach (var t in tasklist)
             {
                 model.tasks.Add(new iTasks { Task = t.Task, Id = t.Id,  TasksRate= t.TasksRate });
@@ -226,6 +226,13 @@ namespace ProjectSetupV2.Controllers
             {
                 model.businessValues.Add(new iBusinessValues { Business = b.Business, Id = b.Id, Rate = b.Rate });
             }
+
+            var userlist = _context.Users.ToList();
+            foreach (var u in userlist)
+            {
+                model.user.Add(new iUser {Id = u.Id, UserName = u.UserName, Rate = u.Rate});
+            }
+
 
             List<InvoiceType> invoices = new List<InvoiceType>();
             invoices = (from Type in _context.InvoiceType
