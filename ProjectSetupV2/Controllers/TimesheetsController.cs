@@ -132,7 +132,7 @@ namespace ProjectSetupV2.Controllers
             if (ModelState.IsValid)
             {
                 var jobtask = new JobTasks();
-                jobtask.Date = model.Date;
+                jobtask.DateCreated = model.Date;
                 jobtask.Status = model.Status;
                 jobtask.Description = model.Description;
                 jobtask.TimeSpent = model.TotalTime;
