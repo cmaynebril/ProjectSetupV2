@@ -30,6 +30,11 @@
                 <span asp-validation-for="TasksRate" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="InvoiceTypeId" class="control-label"></label>
+                <select asp-for="InvoiceTypeId" class="form-control" asp-items="ViewBag.InvoiceTypeId"></select>
+                <span asp-validation-for="InvoiceTypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="BusinessValuesId" class="control-label"></label>
                 <select asp-for="BusinessValuesId" class="form-control" asp-items="ViewBag.BusinessValuesId"></select>
                 <span asp-validation-for="BusinessValuesId" class="text-danger"></span>
