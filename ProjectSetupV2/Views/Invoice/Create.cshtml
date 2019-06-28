@@ -1,0 +1,114 @@
+﻿@model ProjectSetupV2.Models.InvoicingViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>JobTasks</h4>
+<hr />
+<div class="row">
+    <div class="col-md-5">
+        <form asp-action="Create" ng-controller="projectForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<div class="form-group">
+            <label asp-for="ClientId" class="control-label"></label>
+            <select asp-for="ClientId" class="form-control" asp-items="ViewBag.ClientId"></select>
+        </div>
+        <div class="form-group">
+            <label asp-for="TaskId" class="control-label"></label>
+            <select asp-for="TaskId" class="form-control" asp-items="ViewBag.TaskId"></select>
+        </div>
+        <div class="form-group">
+            <label asp-for="JobId" class="control-label"></label>
+            <select asp-for="JobId" class="form-control" asp-items="ViewBag.JobId"></select>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="BusinessValueId" class="control-label"></label>
+            <select asp-for="BusinessValueId" class="form-control" asp-items="ViewBag.BusinessValueId"></select>
+        </div>
+        <div class="form-group">
+            <label asp-for="AssigneeId" class="control-label"></label>
+            <select asp-for="AssigneeId" class="form-control" asp-items="ViewBag.AssigneeId"></select>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>*@
+
+            <div class="form-group" >
+                <label asp-for="ClientId" class="control-label">Client</label>
+                <select asp-for="ClientId" asp-items="@(new SelectList(ViewBag.ListofClients, "Id", "Client"))" class="form-control" ng-change="getJobs()" ng-model="jobDescription"></select>
+            </div>
+            
+            <div id="listofJobs" ng-hide="hideJobs">
+                <hr>
+                <h4>List of Jobs</h4>
+                <div ng-repeat="job in jobs">
+                    <input type="checkbox" ng-model="job.isChecked" ng-change="getTask($(this), {{job.id}})" />
+                    <label>{{job.job}}</label>
+                </div>
+            </div>
+           
+            <div id="listofTasks" ng-hide="hideJobs">
+                <hr>
+                <h4>List of Tasks</h4>
+                <div ng-repeat="task in tasks">
+                    <input type="checkbox" check-linked="{{task.id}}" check-mapping="sample11" ng-click="getTask(task.Id)" />
+                    <label>{{task.text}}</label>
+                </div>
+            </div>
+
+
+
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<script>
+    var getJobUrl = '@Url.Content("~/Invoice/GetJobCategory")';
+    var getTaskUrl = '@Url.Content("~/Invoice/GetTaskCategory")';
+</script>
+
+@*@section scripts{
+    <script type="text/javascript">
+         $(document).ready(function () {
+             $('#ClientId').change(function () {
+                var url = '@Url.Content("~/")' + "Invoice/GetJobCategory";
+                var ddlsource = "#ClientId";
+
+                $.getJSON(url, { Id : $(ddlsource).val() }, function (data) {
+                    var items = '';
+                    var j = 0;
+                    $("#listofJobs").empty();
+                    $.each(data, function (i, job) {
+                        j = j + 1;
+
+                        items += "<div class='custom-control' custom-checkbox> " +
+                            "<input type='checkbox' class='custom-control-input' value= '"+ job.text +"' name='jobs' id=check" + j + ">" +
+                            "<label class='custom-control-label' for=check"+ j +"> " + job.text + " </label>" +
+                            "</div > "
+
+                    });
+                    $('#listofJobs').html(items);
+                });
+             });
+
+            $('.custom-control-input').click(function(){
+                var favorite = [];
+                $.each($("input[name='jobs']:checked"), function(){            
+                    favorite.push($(this).val());
+                });
+                alert("My favourite sports are: " + favorite.join(", "));
+            });
+             
+         });
+      
+    </script>*@
+
