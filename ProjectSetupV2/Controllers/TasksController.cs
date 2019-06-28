@@ -23,7 +23,7 @@ namespace ProjectSetupV2.Controllers
         // GET: Tasks
         public async Task<IActionResult> Index()
         {
-            var dBProjectSetupContext = _context.Tasks.Include(t => t.BusinessValues).Include(t => t.Job);
+            var dBProjectSetupContext = _context.Tasks.Include(t => t.BusinessValues).Include(t => t.Job).Include(t => t.InvoiceType);
             return View(await dBProjectSetupContext.ToListAsync());
         }
 
@@ -52,6 +52,7 @@ namespace ProjectSetupV2.Controllers
         {
             ViewData["BusinessValuesId"] = new SelectList(_context.BusinessValues, "Id", "Business");
             ViewData["JobId"] = new SelectList(_context.Jobs, "Id", "Job");
+            ViewData["InvoiceTypeId"] = new SelectList(_context.InvoiceType, "Id", "Type");
 
             var status = _context.TasksStatus.ToList();
             var statusList = new List<SelectListItem>();
@@ -69,7 +70,7 @@ namespace ProjectSetupV2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Task,JobId,BusinessValuesId,TasksRate,TaskStatus")] Tasks tasks)
+        public async Task<IActionResult> Create([Bind("Id,Task,JobId,BusinessValuesId,TasksRate,TaskStatus,InvoiceTypeId")] Tasks tasks)
         {
             if (ModelState.IsValid)
             {
@@ -79,6 +80,7 @@ namespace ProjectSetupV2.Controllers
             }
             ViewData["BusinessValuesId"] = new SelectList(_context.BusinessValues, "Id", "Business", tasks.BusinessValuesId);
             ViewData["JobId"] = new SelectList(_context.Jobs, "Id", "Id", tasks.JobId);
+            ViewData["InvoiceTypeId"] = new SelectList(_context.InvoiceType, "Id", "Type");
             return View(tasks);
         }
 
@@ -97,6 +99,7 @@ namespace ProjectSetupV2.Controllers
             }
             ViewData["BusinessValuesId"] = new SelectList(_context.BusinessValues, "Id", "Business", tasks.BusinessValuesId);
             ViewData["JobId"] = new SelectList(_context.Jobs, "Id", "Job", tasks.Job);
+            ViewData["InvoiceTypeId"] = new SelectList(_context.InvoiceType, "Id", "Type");
             var status = _context.TasksStatus.ToList();
             var statusList = new List<SelectListItem>();
             foreach (var item in status)
@@ -113,7 +116,7 @@ namespace ProjectSetupV2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Task,JobId,BusinessValuesId,TasksRate,Status")] Tasks tasks)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Task,JobId,BusinessValuesId,TasksRate,Status,InvoiceTypeId")] Tasks tasks)
         {
             if (id != tasks.Id)
             {
@@ -142,6 +145,7 @@ namespace ProjectSetupV2.Controllers
             }
             ViewData["BusinessValuesId"] = new SelectList(_context.BusinessValues, "Id", "Business", tasks.BusinessValuesId);
             ViewData["JobId"] = new SelectList(_context.Jobs, "Id", "Id", tasks.JobId);
+            ViewData["InvoiceTypeId"] = new SelectList(_context.InvoiceType, "Id", "Type");
             return View(tasks);
         }
 
