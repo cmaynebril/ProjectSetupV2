@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectSetupV2.Models.Context;
 
 namespace ProjectSetupV2.Migrations
 {
     [DbContext(typeof(DBProjectSetupContext))]
-    partial class DBProjectSetupContextModelSnapshot : ModelSnapshot
+    [Migration("20190624232753_invoice2")]
+    partial class invoice2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -294,40 +296,18 @@ namespace ProjectSetupV2.Migrations
 
                     b.Property<int>("AssigneeId");
 
-                    b.Property<string>("Billable");
+                    b.Property<string>("Client");
 
-                    b.Property<int>("BusinessValueId");
-
-                    b.Property<int>("ClientId");
-
-                    b.Property<DateTime?>("DateCreated")
+                    b.Property<DateTime?>("Date")
                         .HasColumnType("Date");
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Job");
 
-                    b.Property<DateTime>("EndTime");
+                    b.Property<string>("Task");
 
-                    b.Property<int>("JobId");
-
-                    b.Property<DateTime>("StartTime");
-
-                    b.Property<string>("Status");
-
-                    b.Property<int>("TaskId");
-
-                    b.Property<double>("TotalTimeSpent");
+                    b.Property<string>("TotalTimeSpent");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AssigneeId");
-
-                    b.HasIndex("BusinessValueId");
-
-                    b.HasIndex("ClientId");
-
-                    b.HasIndex("JobId");
-
-                    b.HasIndex("TaskId");
 
                     b.ToTable("TaskTimesheet");
                 });
@@ -340,7 +320,7 @@ namespace ProjectSetupV2.Migrations
 
                     b.Property<int?>("BusinessValuesId");
 
-                    b.Property<int>("InvoiceTypeId");
+                    b.Property<string>("InvoiceType");
 
                     b.Property<int?>("JobId");
 
@@ -353,8 +333,6 @@ namespace ProjectSetupV2.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BusinessValuesId");
-
-                    b.HasIndex("InvoiceTypeId");
 
                     b.HasIndex("JobId");
 
@@ -385,19 +363,6 @@ namespace ProjectSetupV2.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TimesheetsStatus");
-                });
-
-            modelBuilder.Entity("ProjectSetupV2.Models.Context.TypesOfLeave", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Leave");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TypesOfLeave");
                 });
 
             modelBuilder.Entity("ProjectSetupV2.Models.Context.User", b =>
@@ -489,120 +454,6 @@ namespace ProjectSetupV2.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-                });
-
-            modelBuilder.Entity("ProjectSetupV2.Models.Hardwares.Disk", b =>
-                {
-                    b.Property<int>("DiskId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("SerialNumber");
-
-                    b.Property<string>("Spec");
-
-                    b.Property<string>("Title");
-
-                    b.Property<string>("Type");
-
-                    b.Property<int>("UserHardwareId");
-
-                    b.HasKey("DiskId");
-
-                    b.HasIndex("UserHardwareId");
-
-                    b.ToTable("Disk");
-                });
-
-            modelBuilder.Entity("ProjectSetupV2.Models.Hardwares.Display", b =>
-                {
-                    b.Property<int>("DisplayId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Manufacturer");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("SerialNumber");
-
-                    b.Property<string>("Type");
-
-                    b.Property<int>("UserHardwareId");
-
-                    b.HasKey("DisplayId");
-
-                    b.HasIndex("UserHardwareId");
-
-                    b.ToTable("Display");
-                });
-
-            modelBuilder.Entity("ProjectSetupV2.Models.Hardwares.UsbDevice", b =>
-                {
-                    b.Property<int>("UsbDeviceId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description");
-
-                    b.Property<string>("Name");
-
-                    b.Property<int>("UserHardwareId");
-
-                    b.HasKey("UsbDeviceId");
-
-                    b.HasIndex("UserHardwareId");
-
-                    b.ToTable("UsbDevice");
-                });
-
-            modelBuilder.Entity("ProjectSetupV2.Models.Hardwares.UserHardware", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("TimeStamp");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserHardware");
-                });
-
-            modelBuilder.Entity("ProjectSetupV2.Models.Softwares.RunningSoftwares", b =>
-                {
-                    b.Property<int>("SoftwareId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("DateInstalled");
-
-                    b.Property<int>("MainSoftwareId");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("Version");
-
-                    b.HasKey("SoftwareId");
-
-                    b.HasIndex("MainSoftwareId");
-
-                    b.ToTable("RunningSoftwares");
-                });
-
-            modelBuilder.Entity("ProjectSetupV2.Models.Softwares.UserSoftware", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("TimeStamp");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserSoftware");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -701,80 +552,15 @@ namespace ProjectSetupV2.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("ProjectSetupV2.Models.Context.TaskTimesheet", b =>
-                {
-                    b.HasOne("ProjectSetupV2.Models.Context.User", "User")
-                        .WithMany()
-                        .HasForeignKey("AssigneeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("ProjectSetupV2.Models.Context.BusinessValues", "BusinessValue")
-                        .WithMany()
-                        .HasForeignKey("BusinessValueId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("ProjectSetupV2.Models.Context.Clients", "Client")
-                        .WithMany()
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("ProjectSetupV2.Models.Context.Jobs", "Job")
-                        .WithMany()
-                        .HasForeignKey("JobId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("ProjectSetupV2.Models.Context.Tasks", "Task")
-                        .WithMany()
-                        .HasForeignKey("TaskId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("ProjectSetupV2.Models.Context.Tasks", b =>
                 {
                     b.HasOne("ProjectSetupV2.Models.Context.BusinessValues", "BusinessValues")
                         .WithMany("Tasks")
                         .HasForeignKey("BusinessValuesId");
 
-                    b.HasOne("ProjectSetupV2.Models.Context.InvoiceType", "InvoiceType")
-                        .WithMany()
-                        .HasForeignKey("InvoiceTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("ProjectSetupV2.Models.Context.Jobs", "Job")
                         .WithMany("Tasks")
                         .HasForeignKey("JobId");
-                });
-
-            modelBuilder.Entity("ProjectSetupV2.Models.Hardwares.Disk", b =>
-                {
-                    b.HasOne("ProjectSetupV2.Models.Hardwares.UserHardware", "UserHardware")
-                        .WithMany("Disk")
-                        .HasForeignKey("UserHardwareId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("ProjectSetupV2.Models.Hardwares.Display", b =>
-                {
-                    b.HasOne("ProjectSetupV2.Models.Hardwares.UserHardware", "UserHardware")
-                        .WithMany("Display")
-                        .HasForeignKey("UserHardwareId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("ProjectSetupV2.Models.Hardwares.UsbDevice", b =>
-                {
-                    b.HasOne("ProjectSetupV2.Models.Hardwares.UserHardware", "UserHardware")
-                        .WithMany("UsbDevice")
-                        .HasForeignKey("UserHardwareId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("ProjectSetupV2.Models.Softwares.RunningSoftwares", b =>
-                {
-                    b.HasOne("ProjectSetupV2.Models.Softwares.UserSoftware", "UserSoftware")
-                        .WithMany("RunningSoftwares")
-                        .HasForeignKey("MainSoftwareId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

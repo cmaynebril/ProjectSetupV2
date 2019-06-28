@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectSetupV2.Models.Context;
 
 namespace ProjectSetupV2.Migrations
 {
     [DbContext(typeof(DBProjectSetupContext))]
-    partial class DBProjectSetupContextModelSnapshot : ModelSnapshot
+    [Migration("20190627051450_hardwaredb")]
+    partial class hardwaredb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -507,11 +509,7 @@ namespace ProjectSetupV2.Migrations
 
                     b.Property<string>("Type");
 
-                    b.Property<int>("UserHardwareId");
-
                     b.HasKey("DiskId");
-
-                    b.HasIndex("UserHardwareId");
 
                     b.ToTable("Disk");
                 });
@@ -530,18 +528,14 @@ namespace ProjectSetupV2.Migrations
 
                     b.Property<string>("Type");
 
-                    b.Property<int>("UserHardwareId");
-
                     b.HasKey("DisplayId");
-
-                    b.HasIndex("UserHardwareId");
 
                     b.ToTable("Display");
                 });
 
             modelBuilder.Entity("ProjectSetupV2.Models.Hardwares.UsbDevice", b =>
                 {
-                    b.Property<int>("UsbDeviceId")
+                    b.Property<int>("DiskId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -549,60 +543,9 @@ namespace ProjectSetupV2.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int>("UserHardwareId");
-
-                    b.HasKey("UsbDeviceId");
-
-                    b.HasIndex("UserHardwareId");
+                    b.HasKey("DiskId");
 
                     b.ToTable("UsbDevice");
-                });
-
-            modelBuilder.Entity("ProjectSetupV2.Models.Hardwares.UserHardware", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("TimeStamp");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserHardware");
-                });
-
-            modelBuilder.Entity("ProjectSetupV2.Models.Softwares.RunningSoftwares", b =>
-                {
-                    b.Property<int>("SoftwareId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("DateInstalled");
-
-                    b.Property<int>("MainSoftwareId");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("Version");
-
-                    b.HasKey("SoftwareId");
-
-                    b.HasIndex("MainSoftwareId");
-
-                    b.ToTable("RunningSoftwares");
-                });
-
-            modelBuilder.Entity("ProjectSetupV2.Models.Softwares.UserSoftware", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("TimeStamp");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserSoftware");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -743,38 +686,6 @@ namespace ProjectSetupV2.Migrations
                     b.HasOne("ProjectSetupV2.Models.Context.Jobs", "Job")
                         .WithMany("Tasks")
                         .HasForeignKey("JobId");
-                });
-
-            modelBuilder.Entity("ProjectSetupV2.Models.Hardwares.Disk", b =>
-                {
-                    b.HasOne("ProjectSetupV2.Models.Hardwares.UserHardware", "UserHardware")
-                        .WithMany("Disk")
-                        .HasForeignKey("UserHardwareId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("ProjectSetupV2.Models.Hardwares.Display", b =>
-                {
-                    b.HasOne("ProjectSetupV2.Models.Hardwares.UserHardware", "UserHardware")
-                        .WithMany("Display")
-                        .HasForeignKey("UserHardwareId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("ProjectSetupV2.Models.Hardwares.UsbDevice", b =>
-                {
-                    b.HasOne("ProjectSetupV2.Models.Hardwares.UserHardware", "UserHardware")
-                        .WithMany("UsbDevice")
-                        .HasForeignKey("UserHardwareId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("ProjectSetupV2.Models.Softwares.RunningSoftwares", b =>
-                {
-                    b.HasOne("ProjectSetupV2.Models.Softwares.UserSoftware", "UserSoftware")
-                        .WithMany("RunningSoftwares")
-                        .HasForeignKey("MainSoftwareId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
