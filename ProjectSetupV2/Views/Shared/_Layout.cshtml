@@ -45,38 +45,46 @@
                                             <a class="nav-link text-dark" asp-area="" asp-controller="Jobs" asp-action="Index"> Jobs</a>
                                             <a class="nav-link text-dark" asp-area="" asp-controller="Tasks" asp-action="Index"> Tasks</a>
                                             <a class="nav-link text-dark" asp-area="" asp-controller="BusinessValues" asp-action="Index"> Business Values</a>
+                                            <a class="nav-link text-dark" asp-area="" asp-controller="InvoiceTypes" asp-action="Index"> Invoice Types</a>
                                         </div>
                                     </li>
                                 </ul>
                             </div>
                         </li>
+                        <li class="nav-item" style="float:right;">
+                            <form class="form-inline " asp-area="Identity" asp-page="/Account/Logout"
+                                  asp-route-returnUrl="@Url.Page("/", new { area = "" })"
+                                  method="post">
+                                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                            </form>
+                        </li>
                         @*<li class="nav-item">
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                                    aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                                <ul class="navbar-nav flex-grow-1">
-                                    <li class="nav-item active dropdown">
-                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Admin Settings</a>
-                                        <div class="dropdown-menu" style="width:300px;">
-                                            <a class="nav-link text-dark" asp-area="" asp-controller="Clients" asp-action="Create">Add Client</a>
-                                            <a class="nav-link text-dark" asp-area="" asp-controller="Jobs" asp-action="Create">Add Job</a>
-                                            <a class="nav-link text-dark" asp-area="" asp-controller="Jobs" asp-action="Create">Add Task</a>
-                                            <a class="nav-link text-dark" asp-area="" asp-controller="BusinessValues" asp-action="Create">Add Business Value</a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>*@
+                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                                        aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+                                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                                    <ul class="navbar-nav flex-grow-1">
+                                        <li class="nav-item active dropdown">
+                                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Admin Settings</a>
+                                            <div class="dropdown-menu" style="width:300px;">
+                                                <a class="nav-link text-dark" asp-area="" asp-controller="Clients" asp-action="Create">Add Client</a>
+                                                <a class="nav-link text-dark" asp-area="" asp-controller="Jobs" asp-action="Create">Add Job</a>
+                                                <a class="nav-link text-dark" asp-area="" asp-controller="Jobs" asp-action="Create">Add Task</a>
+                                                <a class="nav-link text-dark" asp-area="" asp-controller="BusinessValues" asp-action="Create">Add Business Value</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>*@
                     </ul>
 
                 </div>
-                
+
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container" ng-app="app" >
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             @RenderBody()
@@ -89,17 +97,18 @@
         </div>
     </footer>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
+        @*<script src="~/lib/jquery/dist/jquery.js"></script>*@
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
     </environment>
     <environment exclude="Development">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+        @*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
                 asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
                 asp-fallback-test="window.jQuery"
                 crossorigin="anonymous"
                 integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
-        </script>
+        </script>*@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
                 asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
                 asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
@@ -107,6 +116,10 @@
                 integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o">
         </script>
     </environment>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="~/js/app.js"></script>
+    <script src="~/js/controller.js"></script>
+    <script src="~/js/directive.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @RenderSection("Scripts", required: false)
