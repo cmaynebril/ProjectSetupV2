@@ -12,9 +12,12 @@ namespace ProjectSetupV2.Models.Context
         public int? BusinessValuesId { get; set; }
         public double? TasksRate { get; set; }
         public string Status { get; set; }
+        public int InvoiceTypeId { get; set; }
+
 
 
         public virtual BusinessValues BusinessValues { get; set; }
         public virtual Jobs Job { get; set; }
+        public virtual InvoiceType InvoiceType { get; set; }
     }
 }
