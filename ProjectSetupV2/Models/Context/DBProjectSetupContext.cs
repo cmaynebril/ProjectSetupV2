@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using ProjectSetupV2.Models.Context;
+using ProjectSetupV2.Models.Hardwares;
+using ProjectSetupV2.Models.Softwares;
 
 namespace ProjectSetupV2.Models.Context
 {
@@ -32,6 +34,13 @@ namespace ProjectSetupV2.Models.Context
         public virtual DbSet<TaskTimesheet> TaskTimesheet { get; set; }
         public virtual DbSet<Leave> Leave { get; set; }
         public virtual DbSet<LeaveApprover> LeaveApprover { get; set; }
+        public virtual DbSet<TypesOfLeave> TypesOfLeave { get; set; }
+
+        public virtual DbSet<Disk> Disk { get; set; }
+        public virtual DbSet<Display> Display { get; set; }
+        public virtual DbSet<UsbDevice> UsbDevice { get; set; }
+        public virtual DbSet<UserHardware> UserHardware { get; set; }
+        public virtual DbSet<UserSoftware> UserSoftware { get; set; }
 
 
 
@@ -100,6 +109,18 @@ namespace ProjectSetupV2.Models.Context
             //        .HasConstraintName("FK__Tasks__Id__3E52440B");
             //});
         }
+
+
+
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    if (!optionsBuilder.IsConfigured)
+        //    {
+        //        optionsBuilder.UseSqlServer("Server=.;Database=DBProjectSetup;Trusted_Connection=True;");
+        //    }
+        //}
+
+        //public DbSet<ProjectSetupV2.Models.Hardwares.UserHardware> UserHardware { get; set; }
 
 
     }
