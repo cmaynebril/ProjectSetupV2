@@ -15,8 +15,6 @@ namespace ProjectSetupV2.Models.Context
         public string Status { get; set; }
         public string Description { get; set; }
         public double TimeSpent { get; set; }
-        [ForeignKey("InvoiceType")]
-        public int InvoiceTypeId { get; set; }
         [ForeignKey("Task")]
         public int TaskId { get; set; }
         [ForeignKey("Job")]
@@ -33,6 +31,5 @@ namespace ProjectSetupV2.Models.Context
         public Clients Client { get; set; } //this should be foreign key to table client
         public BusinessValues BusinessValue { get; set; } //this should be foreign key to table businessvalue
         public User User { get; set; } //this should be foreign key to table assignee
-        public InvoiceType InvoiceType { get; set; } //this should be foreign key to table InvoiceType
     }
 }
