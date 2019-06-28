@@ -25,9 +25,9 @@ namespace ProjectSetupV2.Controllers.APIs
 
         // GET: api/user/timesheet
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<JobTasks>>> GetJobTasks()
+        public async Task<ActionResult<IEnumerable<TaskTimesheet>>> GetTaskTimesheet()
         {
-            var result = await (from a in _context.JobTasks
+            var result = await (from a in _context.TaskTimesheet
                                 select new
                                 {
                                     a.Id,
@@ -37,11 +37,15 @@ namespace ProjectSetupV2.Controllers.APIs
                                     a.Task.Task,
                                     a.Status,
                                     DateCreated = a.DateCreated.Value.ToString("yyyy-MM-dd"),
-                                    totalTimeSpent = a.TimeSpent,
+                                    a.Billable,
+                                    a.StartTime,
+                                    a.EndTime,
+                                    totalTimeSpent = a.TotalTimeSpent,
                                     a.BusinessValueId,
-                                    invoiceTypeId = new {
-                                        a.InvoiceType.Id,
-                                        a.InvoiceType.Type
+                                    invoiceTypeId = new
+                                    {
+                                        a.Task.InvoiceType.Id,
+                                        a.Task.InvoiceType.Type,
                                     },
                                     assigneeId = new {
                                         a.User.Id,
@@ -49,14 +53,15 @@ namespace ProjectSetupV2.Controllers.APIs
                                     }
 
                                 }).ToListAsync();
+           
             return Ok(result);
         }
 
-        // GET: api/TaskTimesheetAPI/5
+        // GET: api/user/timesheet/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<JobTasks>> GetJobTasks(int id)
+        public async Task<ActionResult<TaskTimesheet>> GetTaskTimesheet(int id)
         {
-            var result = await (from a in _context.JobTasks
+            var result = await (from a in _context.TaskTimesheet
                                 where (a.Id == id)
                                 select new
                                 {
@@ -67,12 +72,16 @@ namespace ProjectSetupV2.Controllers.APIs
                                     a.Task.Task,
                                     a.Status,
                                     DateCreated = a.DateCreated.Value.ToString("yyyy-MM-dd"),
-                                    totalTimeSpent = a.TimeSpent,
+                                    a.Billable,
+                                    a.StartTime,
+                                    a.EndTime,
+                                    totalTimeSpent = a.TotalTimeSpent,
                                     a.BusinessValueId,
                                     invoiceTypeId = new
                                     {
-                                        a.InvoiceType.Id,
-                                        a.InvoiceType.Type
+                                        a.Task.InvoiceType.Id,
+                                        a.Task.InvoiceType.Type,
+                                        
                                     },
                                     assigneeId = new
                                     {
@@ -81,6 +90,32 @@ namespace ProjectSetupV2.Controllers.APIs
                                     }
                                 }).ToListAsync();
             return Ok(result);
+        }
+
+        // POST: api/user/timesheet
+        [HttpPost]
+        public async Task<ActionResult<TaskTimesheet>> PostTaskTimesheet(TaskTimesheet taskTimesheet)
+        {
+            _context.TaskTimesheet.Add(taskTimesheet);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetTaskTimesheet", new { id = taskTimesheet.Id }, taskTimesheet);
+        }
+
+        // DELETE: api/user/timesheet/5
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<TaskTimesheet>> DeleteTaskTimesheet(int id)
+        {
+            var taskTimesheet = await _context.JobTasks.FindAsync(id);
+            if (taskTimesheet == null)
+            {
+                return NotFound();
+            }
+
+            _context.JobTasks.Remove(taskTimesheet);
+            await _context.SaveChangesAsync();
+
+            return Ok("Successfully Deleted");
         }
     }
 }
